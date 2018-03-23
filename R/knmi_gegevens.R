@@ -192,6 +192,7 @@ toon_knmi_stations <- function(){
 }
 
 
+
 #' Locaties KNMI-stations
 #' 
 #' Bevat een dataframe met de locaties van alle KNMI-stations
