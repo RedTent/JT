@@ -11,7 +11,7 @@
 #' @export
 #'
 clean_vector <- function(vector){
-  c(vector, use.names=FALSE, recursive =TRUE)
+  c(vector, use.names = FALSE, recursive = TRUE)
 }
 
 # df_to_named_list ####
@@ -30,7 +30,7 @@ clean_vector <- function(vector){
 #'
 #' @export
 #'
-df_to_named_list <- function(df, items=1, names=2){
+df_to_named_list <- function(df, items = 1, names = 2){
   values <- dplyr::select(df, items) %>% clean_vector()
   names(values) <- dplyr::select(df, names) %>% clean_vector()
   values
@@ -58,8 +58,8 @@ df_to_named_list <- function(df, items=1, names=2){
 #' \itemize{
 #' 
 #' \item YYYYMMDD  = Datum (YYYY=jaar MM=maand DD=dag) / Date (YYYY=year MM=month DD=day)
-#' \item DDVEC     = Vectorgemiddelde windrichting in graden (360=noord, 90=oost, 180=zuid, 270=west, 0=windstil/variabel). Zie http://www.knmi.nl/kennis-en-datacentrum/achtergrond/klimatologische-brochures-en-boeken / Vector mean wind direction in degrees (360=north, 90=east, 180=south, 270=west, 0=calm/variable)
-#' \item FHVEC     = Vectorgemiddelde windsnelheid (in 0.1 m/s). Zie http://www.knmi.nl/kennis-en-datacentrum/achtergrond/klimatologische-brochures-en-boeken / Vector mean windspeed (in 0.1 m/s)
+#' \item DDVEC     = Vectorgemiddelde windrichting in graden (360=noord, 90=oost, 180=zuid, 270=west, 0=windstil/variabel). Zie \url{http://www.knmi.nl/kennis-en-datacentrum/achtergrond/klimatologische-brochures-en-boeken} / Vector mean wind direction in degrees (360=north, 90=east, 180=south, 270=west, 0=calm/variable)
+#' \item FHVEC     = Vectorgemiddelde windsnelheid (in 0.1 m/s). Zie \url{http://www.knmi.nl/kennis-en-datacentrum/achtergrond/klimatologische-brochures-en-boeken} / Vector mean windspeed (in 0.1 m/s)
 #' \item FG        = Etmaalgemiddelde windsnelheid (in 0.1 m/s) / Daily mean windspeed (in 0.1 m/s) 
 #' \item FHX       = Hoogste uurgemiddelde windsnelheid (in 0.1 m/s) / Maximum hourly mean windspeed (in 0.1 m/s)
 #' \item FHXH      = Uurvak waarin FHX is gemeten / Hourly division in which FHX was measured
@@ -118,7 +118,7 @@ knmi_dag_ruw <- function(knmistation = "344"){
   
   temp <- tempfile()
   download.file(url,temp)
-  data <- readr::read_csv(unz(temp, bestandsnaam), skip = 47, trim_ws =TRUE, col_types = cols(.default = col_number(), YYYYMMDD = col_date(format = "%Y%m%d")))
+  data <- readr::read_csv(unz(temp, bestandsnaam), skip = 47, trim_ws = TRUE, col_types = cols(.default = col_number(), YYYYMMDD = col_date(format = "%Y%m%d")))
   unlink(temp)
   
   data <- data %>% dplyr::mutate_if(is.numeric, funs(ifelse(. == -1,0,.))) # vervang in alle numerieke kolommen -1 voor 0 anders waarde behouden
@@ -153,6 +153,27 @@ knmi_neerslag_dag <- function(knmistation="344"){
   
 }
 
+knmi_temperatuur_dag <- function(knmistation="344"){
+  # in graden Celsius
+  data <- knmi_dag_ruw(knmistation) %>%
+    dplyr::select(YYYYMMDD,TG) %>%
+    tidyr::drop_na() %>%
+    dplyr::mutate(TG = TG/10) %>%
+    dplyr::rename(datum = YYYYMMDD, gem_temp = TG)
+  
+  data
+}
+
+knmi_zonneschijn_dag <- function(knmistation="344"){
+  
+  data <- knmi_dag_ruw(knmistation) %>%
+    dplyr::select(YYYYMMDD,SQ,SP,Q) %>%
+    tidyr::drop_na() %>%
+    dplyr::mutate(SQ = SQ/10) %>%
+    dplyr::rename(datum = YYYYMMDD, zon_uren = SQ, rel_zon_uren = SP, straling = Q)
+  
+  data
+}
 
 
 #   #####
