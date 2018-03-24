@@ -1,13 +1,13 @@
 #' Jaar en maand toevoegen
 #' 
-#' Voeg kolommen toe met het jaar en/of de maand op basis van de datum.
+#' Voeg kolommen toe met het jaar en/of de maand op basis van de datum. De datumkolom moet een datumformaat hebben.
 #'
 #' @param dataframe Een dataframe waar de kolommen aan toegevoegd moeten worden.
-#' @param datum Een characterstring met naam van de datum kolom. Default is \code{"datum"}
+#' @param datum Een character-string met naam van de datum kolom. Default is \code{"datum"}
 #'
-#' @return De dataframe met een extra kolom \code{jaar} en/of \code{maand}. Beide kolommen zijn integers
+#' @return De dataframe met een extra kolom \code{jaar} en/of \code{maand}. Beide kolommen zijn integers.
 #' 
-#' @import lubridate
+#' @importFrom lubridate year month
 #' 
 #' @export
 #'
@@ -19,11 +19,14 @@
 #' 
 #' data %>% add_jaar_maand()
 #' 
+#' data %>% add_jaar()
+#' 
+#' data %>% add_maand()
 #' }
 add_jaar_maand <- function(dataframe, datum="datum"){
 
-  dataframe$jaar <- as.integer(year(dataframe[[datum]]))
-  dataframe$maand <- as.integer(month(dataframe[[datum]]))
+  dataframe$jaar <- as.integer(lubridate::year(dataframe[[datum]]))
+  dataframe$maand <- as.integer(lubridate::month(dataframe[[datum]]))
   dataframe
 
 }
@@ -32,7 +35,7 @@ add_jaar_maand <- function(dataframe, datum="datum"){
 #' @export
 add_jaar <- function(dataframe, datum="datum"){
   
-  dataframe$jaar <- as.integer(year(dataframe[[datum]]))
+  dataframe$jaar <- as.integer(lubridate::year(dataframe[[datum]]))
   dataframe
   
 }
@@ -41,7 +44,7 @@ add_jaar <- function(dataframe, datum="datum"){
 #' @export
 add_maand <- function(dataframe, datum="datum"){
   
-  dataframe$maand <- as.integer(month(dataframe[[datum]]))
+  dataframe$maand <- as.integer(lubridate::month(dataframe[[datum]]))
   dataframe
   
 }

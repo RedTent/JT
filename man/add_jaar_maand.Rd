@@ -15,13 +15,13 @@ add_maand(dataframe, datum = "datum")
 \arguments{
 \item{dataframe}{Een dataframe waar de kolommen aan toegevoegd moeten worden.}
 
-\item{datum}{Een characterstring met naam van de datum kolom. Default is \code{"datum"}}
+\item{datum}{Een character-string met naam van de datum kolom. Default is \code{"datum"}}
 }
 \value{
-De dataframe met een extra kolom \code{jaar} en/of \code{maand}. Beide kolommen zijn integers
+De dataframe met een extra kolom \code{jaar} en/of \code{maand}. Beide kolommen zijn integers.
 }
 \description{
-Voeg kolommen toe met het jaar en/of de maand op basis van de datum.
+Voeg kolommen toe met het jaar en/of de maand op basis van de datum. De datumkolom moet een datumformaat hebben.
 }
 \section{Functions}{
 \itemize{
@@ -38,5 +38,8 @@ Voeg kolommen toe met het jaar en/of de maand op basis van de datum.
 
 data \%>\% add_jaar_maand()
 
+data \%>\% add_jaar()
+
+data \%>\% add_maand()
 }
 }
