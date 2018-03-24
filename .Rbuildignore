@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^TEST
 ^DEV
+^\.travis\.yml$
