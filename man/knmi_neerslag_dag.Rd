@@ -39,6 +39,7 @@ Voor meer toelichting kan die functie worden geraadpleegd.
 
 \examples{
 
+\dontrun{
 neerslag_data <- knmi_neerslag_dag()
 neerslag_data <- knmi_neerslag_dag(310)
 
@@ -48,4 +49,5 @@ zonuren_data <- knmi_zonuren_dag()
 
 straling_data <- knmi_straling_dag()
 
+}
 }
