@@ -3,3 +3,4 @@
 ^TEST
 ^DEV
 ^\.travis\.yml$
+^data-raw$
