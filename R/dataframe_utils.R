@@ -1,3 +1,5 @@
+# Jaar en maand -----------------------------------------------------------
+
 #' Jaar en maand toevoegen
 #' 
 #' Voeg kolommen toe met het jaar en/of de maand op basis van de datum. De datumkolom moet een datumformaat hebben.
@@ -49,3 +51,31 @@ add_maand <- function(dataframe, datum="datum"){
   
 }
 
+# Opzoektabel -------------------------------------------------------------
+
+
+#' Zoek een waarde op in een opzoektabel
+#' 
+#' Deze functie kan waarden opzoeken in een tabel. Het is het alternatief voor een hash table, die R helaas niet heeft.
+#'
+#' @param df Een dataframe die functioneert als opzoektabel
+#' @param sleutel De sleutelwaarde, selecteert de rij
+#' @param attribuut De kolom(index) waar de op te halen waarde staat
+#' @param sleutelkolom Optioneel - de kolom(index) als character of integer. 
+#' Standaard staat de eerste kolom als sleutelkolom ingesteld
+#'
+#' @return De waarde die te vinden is op de betreffende rij of kolom
+#' @export
+#' 
+#' @import dplyr
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' meetpuntomschrijving <- ophalen_waarde(meetpuntendf, sleutel = "00016", attribuut = "mpomsch")
+#' 
+#' }
+opzoeken_waarde <- function(df, sleutel, attribuut, sleutelkolom = 1){
+  meetpuntendf[meetpuntendf[[sleutelkolom]] == sleutel, attribuut] %>% 
+    c(use.names = FALSE, recursive = TRUE)
+}
