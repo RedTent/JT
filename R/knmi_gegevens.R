@@ -111,6 +111,7 @@ knmi_dag_ruw <- function(knmistation = "344"){
 #'
 #' @examples
 #' 
+#' \dontrun{
 #' neerslag_data <- knmi_neerslag_dag()
 #' neerslag_data <- knmi_neerslag_dag(310)
 #' 
@@ -120,6 +121,7 @@ knmi_dag_ruw <- function(knmistation = "344"){
 #' 
 #' straling_data <- knmi_straling_dag()
 #' 
+#' }
 knmi_neerslag_dag <- function(knmistation="344"){
   
   data <- knmi_dag_ruw(knmistation) %>%

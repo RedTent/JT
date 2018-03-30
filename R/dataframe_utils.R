@@ -1,3 +1,5 @@
+# Jaar en maand -----------------------------------------------------------
+
 #' Jaar en maand toevoegen
 #' 
 #' Voeg kolommen toe met het jaar en/of de maand op basis van de datum. De datumkolom moet een datumformaat hebben.
@@ -48,6 +50,8 @@ add_maand <- function(dataframe, datum="datum"){
   dataframe
   
 }
+
+# Opzoektabel -------------------------------------------------------------
 
 
 #' Zoek een waarde op in een opzoektabel
