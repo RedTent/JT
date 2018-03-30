@@ -2,7 +2,7 @@
 
 
 
-<img src="images/JTIP.png" alt="JTIP" style="width: 200px;"/>
+![](images/JTIP.png)
 
 
 ## Package JT
