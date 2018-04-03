@@ -204,7 +204,7 @@ import_normen_rivm <- function(normen = "data/normen.txt", parameterdf = import_
   koppeling <- c("Aquo-code" = "aquo_parcode", "Eenheid" = "aquo_eenheid", "Compartiment.code" = "aquo_compartiment")
   
   normen <- readr::read_tsv(normen, col_types = readr::cols(Waarde = "n"), locale = readr::locale(decimal_mark = ",")) %>% 
-    dplyr::mutate(Eenheid = dplyr::case_when(Eenheid == "µg/l" ~ "ug/l", TRUE ~ Eenheid )) %>% 
+    dplyr::mutate(Eenheid = dplyr::case_when(Eenheid == "\u00B5g/l" ~ "ug/l", TRUE ~ Eenheid )) %>% 
     dplyr::filter(!is.na(Eenheid), !is.na(`Aquo-code`), !is.na(Compartiment), !(Norm.code %in% c("AC","Kp","VR")) ) %>% 
     dplyr::left_join(parameterdf, by = koppeling) %>%
     dplyr::filter(!is.na(parnr), parnr > 999) %>%
