@@ -76,6 +76,6 @@ add_maand <- function(dataframe, datum="datum"){
 #' 
 #' }
 opzoeken_waarde <- function(df, sleutel, attribuut, sleutelkolom = 1){
-  meetpuntendf[meetpuntendf[[sleutelkolom]] == sleutel, attribuut] %>% 
+  df[df[[sleutelkolom]] == sleutel, attribuut] %>% 
     c(use.names = FALSE, recursive = TRUE)
 }
