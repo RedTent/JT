@@ -15,4 +15,5 @@ Imports: dplyr,
     tidyr,
     readr,
     leaflet,
-    lubridate
+    lubridate,
+    ggplot2
