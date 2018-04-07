@@ -15,7 +15,7 @@ csv-formaat zijn met \code{;} als scheidingsteken en \code{,} als scheidingsteke
 Het is ook mogelijk om een zip-bestand in te lezen waar het csv-bestand in zit.}
 }
 \value{
-
+Een dataframe met biologische meetwaarden.
 }
 \description{
 De functie helpt bij het importeren van biologische data. De functie leest de kolom \code{datum} als \code{Date}.
@@ -35,7 +35,6 @@ Er is enige vrijheid t.a.v. de inhoud van het bestand. De functie verwacht ten m
  \item \code{stadiumwaarde} Meetwaarde voor het stadium, indien beschikbaar
  \item \code{eenheid} Eenheid van de meetwaarden
  \item \code{taxniv} Code voor het taxonomisch niveau
- 
  }
 }
 \section{Functions}{
