@@ -13,3 +13,14 @@
 #' 
 #' De kleur blauw die overeenkomt met het HHSK-logo
 "hhskblauw"
+
+
+#' Droge voeten en schoon water
+#' 
+#' 
+"schonevoeten"
+
+#' HHSK logo
+#' 
+#' Dit is het HHSK logo
+"logo"
