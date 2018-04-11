@@ -17,7 +17,7 @@
 
 #' Droge voeten en schoon water
 #' 
-#' 
+#' Beeld Droge voeten en schoon water
 "schonevoeten"
 
 #' HHSK logo
