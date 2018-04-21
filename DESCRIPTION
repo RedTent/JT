@@ -16,4 +16,5 @@ Imports: dplyr,
     readr,
     leaflet,
     lubridate,
-    ggplot2
+    ggplot2,
+    scales

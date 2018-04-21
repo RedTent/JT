@@ -5,7 +5,6 @@
 #' 
 #' Dit is een HHSK-thema voor ggplot met de kleuren van HHSK
 #'
-#' @import ggplot2
 #'
 #' @return Een thema voor ggplot
 #' @export
@@ -60,9 +59,9 @@ hhskthema <- function(){
 #' 
 #' @param plot_loess logical. Wel of niet plotten van een LOESS-curve. Default is TRUE
 #'
-#' @import ggplot2
 #' @import dplyr
-#' @import lubridate
+#' @importFrom lubridate year
+#' @importFrom  scales rescale_none
 #'
 #' @return Een ggplot grafiek. Het is mogelijk om achteraf andere ggplot objecten toe te voegen met `+`
 #' @export
@@ -128,7 +127,7 @@ grafiek_basis <- function(data,
 #' @examples
 #' \dontrun{
 #' 
-#' pdf("mijntest.pdf, width = 16, height = 8)
+#' pdf("mijntest.pdf", width = 16, height = 8)
 #' titelpagina_internet()
 #' print(basisgrafiek)
 #' dev.off()

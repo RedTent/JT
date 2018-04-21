@@ -15,3 +15,12 @@ Een titelpagina voor de grafieken
 \description{
 Creeert een titelpagina voor grafieken zoals deze worden geproduceerd met [grafiek_basis]. Dient gebruikt te worden binnen een graphic device (bijvoorbeeld `pdf()`).
 }
+\examples{
+\dontrun{
+
+pdf("mijntest.pdf", width = 16, height = 8)
+titelpagina_internet()
+print(basisgrafiek)
+dev.off()
+}
+}
