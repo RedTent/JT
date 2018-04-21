@@ -27,6 +27,7 @@ Deze functie plot een tijdreeksgrafiek van 1 meetpunt van 1 parameter.
 \examples{
 \dontrun{
 
-basisgrafiek <- grafiek_basis(data = chloride_myplace, parameterdf, meetpuntendf, plot_loess = FALSE) 
+basisgrafiek <- grafiek_basis(data = chloride_myplace, 
+                    parameterdf, meetpuntendf, plot_loess = FALSE) 
 }
 }

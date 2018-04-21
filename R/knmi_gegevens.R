@@ -78,7 +78,7 @@ knmi_dag_ruw <- function(knmistation = "344"){
   bestandsnaam <- paste0("etmgeg_",knmistation,".txt")
   
   temp <- tempfile()
-  download.file(url,temp)
+  utils::download.file(url,temp)
   data <- readr::read_csv(unz(temp, bestandsnaam), skip = 47, trim_ws = TRUE, col_types = readr::cols(.default = readr::col_number(), YYYYMMDD = readr::col_date(format = "%Y%m%d")))
   unlink(temp)
   

@@ -69,7 +69,8 @@ hhskthema <- function(){
 #' @examples
 #' \dontrun{
 #' 
-#' basisgrafiek <- grafiek_basis(data = chloride_myplace, parameterdf, meetpuntendf, plot_loess = FALSE) 
+#' basisgrafiek <- grafiek_basis(data = chloride_myplace, 
+#'                     parameterdf, meetpuntendf, plot_loess = FALSE) 
 #' }
 grafiek_basis <- function(data,
                           parameterdf = import_parameters(),
