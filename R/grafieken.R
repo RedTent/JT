@@ -51,6 +51,10 @@ hhskthema <- function(){
 #'
 #' @param data Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in [import_fys_chem()].
 #' 
+#' @param mp character. Meetpuntcode van het betreffende meetpunt. Neemt als default het eerste meetpunt uit `data`
+#' 
+#' @param parnr character. Parameternummer van het betrffende meetpunt. Neemt als default het eerste parameternummer uit `data`
+#' 
 #' @param parameterdf dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in [import_parameters()].
 #' Probeert default ook met deze functie een parameterdf te maken.
 #' 
@@ -58,7 +62,7 @@ hhskthema <- function(){
 #' Probeert default ook met deze functie een meetpuntendf te maken.
 #' 
 #' @param plot_loess logical. Wel of niet plotten van een LOESS-curve. Default is TRUE
-#'
+#' 
 #' @import dplyr
 #' @importFrom lubridate year
 #' @importFrom  scales rescale_none
@@ -72,17 +76,18 @@ hhskthema <- function(){
 #' basisgrafiek <- grafiek_basis(data = chloride_myplace, 
 #'                     parameterdf, meetpuntendf, plot_loess = FALSE) 
 #' }
-grafiek_basis <- function(data,
-                          parameterdf = import_parameters(),
+grafiek_basis <- function(data, 
+                          mp = data[[1, "mp"]],
+                          parnr = data[[1, "parnr"]],
                           meetpuntendf = import_meetpunten(),
+                          parameterdf = import_parameters(),
                           plot_loess = TRUE){
-  # testen als default meetpunt = data[[1,"mp"]]
   # het is de vraag of de grafiektitel, subtitel en astitels intern gedefinieerd moeten worden of toch liever daarbuiten
 
-  meetpunt <- data[[1,"mp"]]
-  mpomsch <- opzoeken_waarde(meetpuntendf, sleutel = meetpunt, attribuut =  "mpomsch", sleutelkolom = "mp")
+  #mp <- data[[1,"mp"]]
+  mpomsch <- opzoeken_waarde(meetpuntendf, sleutel = mp, attribuut =  "mpomsch", sleutelkolom = "mp")
 
-  parnr <- data[[1,"parnr"]]
+  #parnr <- data[[1,"parnr"]]
   parameternaam <- opzoeken_waarde(parameterdf, sleutel = parnr, attribuut = "parnaamlang", sleutelkolom = "parnr")
   eenheid <- opzoeken_waarde(parameterdf, parnr, "eenheid")
 
@@ -95,7 +100,7 @@ grafiek_basis <- function(data,
     ggplot2::geom_point(col = hhskblauw) +
     ggplot2::geom_point(data = dplyr::filter(data, detectiegrens == "<"), pch = 21, col = hhskblauw, fill = "white") + # detectiegrenswaarden
     
-    ggplot2::labs(title = paste("Meetpunt:", meetpunt,"-", mpomsch), subtitle = paste("Parameter:", parameternaam)) +
+    ggplot2::labs(title = paste("Meetpunt:", mp,"-", mpomsch), subtitle = paste("Parameter:", parameternaam)) +
     ggplot2::ylab(eenheid) +
     ggplot2::scale_y_continuous(limits = ylimieten, expand = c(0,0), oob = scales::rescale_none ) +
     ggplot2::xlab("") +
