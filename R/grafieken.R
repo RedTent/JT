@@ -51,9 +51,9 @@ hhskthema <- function(){
 #'
 #' @param data Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in [import_fys_chem()].
 #' 
-#' @param mp character. Meetpuntcode van het betreffende meetpunt. Neemt als default het eerste meetpunt uit `data`
+#' @param mp character. Optioneel, Meetpuntcode van het betreffende meetpunt. Neemt anders het eerste meetpunt uit `data`
 #' 
-#' @param parnr character. Parameternummer van het betrffende meetpunt. Neemt als default het eerste parameternummer uit `data`
+#' @param parnr character. Optioneel,Parameternummer van het betrffende meetpunt. Neemt anders het eerste parameternummer uit `data`
 #' 
 #' @param parameterdf dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in [import_parameters()].
 #' Probeert default ook met deze functie een parameterdf te maken.
@@ -77,17 +77,17 @@ hhskthema <- function(){
 #'                     parameterdf, meetpuntendf, plot_loess = FALSE) 
 #' }
 grafiek_basis <- function(data, 
-                          mp = data[[1, "mp"]],
-                          parnr = data[[1, "parnr"]],
+                          mp = NULL,
+                          parnr = NULL,
                           meetpuntendf = import_meetpunten(),
                           parameterdf = import_parameters(),
                           plot_loess = TRUE){
   # het is de vraag of de grafiektitel, subtitel en astitels intern gedefinieerd moeten worden of toch liever daarbuiten
 
-  #mp <- data[[1,"mp"]]
+  if (is.null(mp)) {mp <- data[[1,"mp"]]}
   mpomsch <- opzoeken_waarde(meetpuntendf, sleutel = mp, attribuut =  "mpomsch", sleutelkolom = "mp")
 
-  #parnr <- data[[1,"parnr"]]
+  if (is.null(parnr)) {parnr <- data[[1,"parnr"]]}
   parameternaam <- opzoeken_waarde(parameterdf, sleutel = parnr, attribuut = "parnaamlang", sleutelkolom = "parnr")
   eenheid <- opzoeken_waarde(parameterdf, parnr, "eenheid")
 
@@ -187,4 +187,143 @@ titelpagina_internet <- function(inclusief_normen = TRUE){
 }
 
 
+# norm_lijnen -------------------------------------------------------------
+
+#' Maak en voeg RIVM-normlijnen toe aan een plot
+#' 
+#' De functie \code{norm_lijnen} vertaalt de normen behorend bij een bepaald parameternummer in normlijnen die toegevoegd kunnen worden aan 
+#' een plot. De functie \code{add_norm_lijnen} voegt ze toe aan het plot.
+#'
+#' @param plot Het plot waar de normlijnen aan toegevoegd moeten worden
+#' @param parnr Het nummer van de parameter waar de normen van toegevoegd moeten worden
+#' @param normen Een dataframe met de normen zoals geimporteerd kan worden met de functie \code{\link{import_normen_rivm}}
+#' 
+#' @return een geom-object met normen dat toegevoegd kan worden aan een plot, of een plot waar deze aan toegevoegd zijn.
+#' 
+#' @describeIn norm_lijnen Creeer normlijnen die aan een plot toegevoegd kunnen worden
+#' 
+#' @importFrom rlang !!
+#' 
+#' @export
+#'
+#' @examples
+#' 
+#' \dontrun{
+#' 
+#' norm_lijnen_object <- norm_lijnen(parnr = 1000, normen = normen)
+#' plot_met_normen <- plot + norm_lijnen_object
+#' 
+#' plot_met_normen <- add_norm_lijnen(plot, parnr = 1000, normen = normen )
+#' 
+#' plot %>% add_norm_lijnen(parnr = 1000, normen = normen)
+#' 
+#' }
+#' 
+norm_lijnen <- function(parnr, normen){
+  #require(dplyr)
+  #require(ggplot2)
+  #require(grid)
+  
+  norm_sel <- normen %>% dplyr::filter(parnr == !!parnr) #!! zorgt ervoor dat het functie-argument wordt gebruikt en niet de kolomnaam
+  norm_JGM <- norm_sel %>% dplyr::select(norm_JGM) %>% as.numeric()
+  norm_MAX <- norm_sel %>% dplyr::select(norm_MAX) %>% as.numeric()
+  norm_P90 <- norm_sel %>% dplyr::select(norm_P90) %>% as.numeric()
+  
+  if (sum(is.na(c(norm_JGM, norm_MAX, norm_P90))) == 3) {
+    norm_lijnen = grid::grid.null()
+    } else {
+    norm_lijnen <- ggplot2::geom_hline(yintercept = c(norm_JGM, norm_MAX, norm_P90), lty = c(2,1,5), alpha = 0.5, color = "red")
+  }
+  
+  norm_lijnen
+}
+
+#' @describeIn norm_lijnen Voeg normlijnen toe aan een bestaand plot
+#' @export
+add_norm_lijnen <- function(plot, parnr, normen){
+  #require(ggplot2)
+  
+  plot <- plot + norm_lijnen(parnr, normen)
+  plot
+  
+}
+
+# grafieken_internet ------------------------------------------------------
+
+
+#' Maak grafieken voor het internet
+#'
+#' Deze functie maakt per meetpunt een pdf-document met een grafiek, met de functie \code{grafiek_basis()}, voor elke parameter.
+#'
+#' @param data Een dataframe met ruwe gegevens om grafieken van te maken. Deze moet tenminste de kolommen mp, parnr, datum, 
+#' detectiegrens en waarde hebben.
+#' @param meetpuntendf Een dataframe met mp en mpomsch voor de titel van de grafiek. Zie ook \code{import_meetpunten()}
+#' @param parameterdf Een dataframe met parnr eenheid en parnaamlang voor de titel van de grafiek. Zie ook \code{import_parameters()}
+#' @param normen Een dataframe met de normen. Zie ook \code{import_normen_rivm()}
+#' @param plot_normen Logical. Switch om wel geen normen te plotten. Default is \code{TRUE}
+#' @param export_pad String. Locatie waar de pdf's geplaatst worden
+#' @param lijst_parnrs Een optionele vector met parameternummers die meegenomen worden.
+#' @param min_aantal_waarden Het minimale aantal waarnemingen wat vereist is voor een grafiek
+#'
+#' @import dplyr
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' grafieken_internet(data, meetpuntendf, parameterdf, normen, export_pad = "TEST/GRAF")
+#' 
+#' }
+#' 
+grafieken_internet <- function(data, 
+                               meetpuntendf = import_meetpunten(),
+                               parameterdf = import_parameters(),
+                               normen = import_normen_rivm(),
+                               plot_normen = TRUE,
+                               export_pad = "export/grafieken",
+                               lijst_parnrs = NULL,
+                               min_aantal_waarden = 12){
+  
+  if (is.null(lijst_parnrs)) {lijst_parnrs <- c(1:99,107,200:401,403:505,507:899,1000:2999)}
+  
+  data <- data %>% 
+    # overbodige parameters en kolommen verwijderen
+    dplyr::filter(parnr %in% lijst_parnrs) %>% 
+    dplyr::group_by(mp, parnr) %>% 
+    dplyr::mutate(aantal = n(), 
+           min_is_max = min(waarde, na.rm = TRUE) == max(waarde, na.rm = TRUE),
+           alleen_detectiegrens = aantal == nrow(dplyr::filter(., detectiegrens == "<")) ) %>%  
+    dplyr::filter(aantal >= min_aantal_waarden, !min_is_max, !alleen_detectiegrens) %>% 
+    dplyr::select(mp, parnr, datum, detectiegrens, waarde) %>%
+    dplyr::ungroup()
+    
+  # loops om grafieken te maken
+  for (meetpunt in sort(unique(data$mp))) {
+    print(meetpunt)
+    data_mp <- data %>% dplyr::filter(mp == meetpunt)
+    
+    filename <- paste0(export_pad, "/", meetpunt, ".pdf")
+    pdf(file = filename, width = 16, height = 8)
+    #aantalplots <- 0 #om lege plots later te verwijderen
+    
+    titelpagina_internet(inclusief_normen = plot_normen)    
+    
+    for (parameternr in sort(unique(data_mp$parnr))) {
+      
+      grafiek <- dplyr::filter(data_mp, parnr == parameternr) %>% 
+        grafiek_basis(mp = meetpunt, parnr = parameternr, meetpuntendf = meetpuntendf, parameterdf = parameterdf, plot_loess = parameternr < 1000) %>% 
+        {if (parameternr >= 1000 & plot_normen) {add_norm_lijnen(., parameternr, normen)} else {.} }
+      
+      suppressMessages(print(grafiek))
+      aantalplots <- aantalplots + 1
+    }# einde parameterloop
+    
+    dev.off()
+    #if (aantalplots == 0) {file.remove(filename)}#verwijdert lege plots
+  }#einde meetpuntloop
+    
+    
+}
 

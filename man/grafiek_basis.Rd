@@ -4,16 +4,16 @@
 \alias{grafiek_basis}
 \title{Tijdreeksgrafiek}
 \usage{
-grafiek_basis(data, mp = data[[1, "mp"]], parnr = data[[1, "parnr"]],
+grafiek_basis(data, mp = NULL, parnr = NULL,
   meetpuntendf = import_meetpunten(), parameterdf = import_parameters(),
   plot_loess = TRUE)
 }
 \arguments{
 \item{data}{Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in [import_fys_chem()].}
 
-\item{mp}{character. Meetpuntcode van het betreffende meetpunt. Neemt als default het eerste meetpunt uit `data`}
+\item{mp}{character. Optioneel, Meetpuntcode van het betreffende meetpunt. Neemt anders het eerste meetpunt uit `data`}
 
-\item{parnr}{character. Parameternummer van het betrffende meetpunt. Neemt als default het eerste parameternummer uit `data`}
+\item{parnr}{character. Optioneel,Parameternummer van het betrffende meetpunt. Neemt anders het eerste parameternummer uit `data`}
 
 \item{meetpuntendf}{dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in [import_meetpunten()].
 Probeert default ook met deze functie een meetpuntendf te maken.}
