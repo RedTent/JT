@@ -4,22 +4,22 @@
 \alias{grafiek_basis}
 \title{Tijdreeksgrafiek}
 \usage{
-grafiek_basis(data, mp = NULL, parnr = NULL,
-  meetpuntendf = import_meetpunten(), parameterdf = import_parameters(),
+grafiek_basis(data, meetpuntendf = import_meetpunten(),
+  parameterdf = import_parameters(), mp = NULL, parnr = NULL,
   plot_loess = TRUE)
 }
 \arguments{
-\item{data}{Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in [import_fys_chem()].}
+\item{data}{Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in \code{import_fys_chem()}.}
 
-\item{mp}{character. Optioneel, Meetpuntcode van het betreffende meetpunt. Neemt anders het eerste meetpunt uit `data`}
+\item{meetpuntendf}{dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in \code{import_meetpunten()}.
+Probeert default ook met deze functie een meetpuntendf te maken.#'}
 
-\item{parnr}{character. Optioneel,Parameternummer van het betrffende meetpunt. Neemt anders het eerste parameternummer uit `data`}
-
-\item{meetpuntendf}{dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in [import_meetpunten()].
-Probeert default ook met deze functie een meetpuntendf te maken.}
-
-\item{parameterdf}{dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in [import_parameters()].
+\item{parameterdf}{dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in \code{import_parameters()}.
 Probeert default ook met deze functie een parameterdf te maken.}
+
+\item{mp}{character. Optioneel, Meetpuntcode van het betreffende meetpunt. Neemt anders het eerste meetpunt uit \code{data}}
+
+\item{parnr}{character. Optioneel,Parameternummer van het betrffende meetpunt. Neemt anders het eerste parameternummer uit \code{data}}
 
 \item{plot_loess}{logical. Wel of niet plotten van een LOESS-curve. Default is TRUE}
 }

@@ -49,17 +49,17 @@ hhskthema <- function(){
 #'
 #' Deze functie plot een tijdreeksgrafiek van 1 meetpunt van 1 parameter.
 #'
-#' @param data Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in [import_fys_chem()].
+#' @param data Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in \code{import_fys_chem()}.
 #' 
-#' @param mp character. Optioneel, Meetpuntcode van het betreffende meetpunt. Neemt anders het eerste meetpunt uit `data`
+#' @param meetpuntendf dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in \code{import_meetpunten()}.
+#' Probeert default ook met deze functie een meetpuntendf te maken.#' 
 #' 
-#' @param parnr character. Optioneel,Parameternummer van het betrffende meetpunt. Neemt anders het eerste parameternummer uit `data`
-#' 
-#' @param parameterdf dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in [import_parameters()].
+#' @param parameterdf dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in \code{import_parameters()}.
 #' Probeert default ook met deze functie een parameterdf te maken.
 #' 
-#' @param meetpuntendf dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in [import_meetpunten()].
-#' Probeert default ook met deze functie een meetpuntendf te maken.
+#' @param mp character. Optioneel, Meetpuntcode van het betreffende meetpunt. Neemt anders het eerste meetpunt uit \code{data}
+#' 
+#' @param parnr character. Optioneel,Parameternummer van het betrffende meetpunt. Neemt anders het eerste parameternummer uit \code{data}
 #' 
 #' @param plot_loess logical. Wel of niet plotten van een LOESS-curve. Default is TRUE
 #' 
@@ -77,10 +77,10 @@ hhskthema <- function(){
 #'                     parameterdf, meetpuntendf, plot_loess = FALSE) 
 #' }
 grafiek_basis <- function(data, 
-                          mp = NULL,
-                          parnr = NULL,
                           meetpuntendf = import_meetpunten(),
                           parameterdf = import_parameters(),
+                          mp = NULL,
+                          parnr = NULL,
                           plot_loess = TRUE){
   # het is de vraag of de grafiektitel, subtitel en astitels intern gedefinieerd moeten worden of toch liever daarbuiten
 
@@ -115,6 +115,75 @@ grafiek_basis <- function(data,
   grafiek
   
 }# end of function
+
+
+# boxplot_basis -----------------------------------------------------------
+
+#' Boxplots per jaar
+#' 
+#' Deze functie plot een boxplot per jaar van 1 meetpunt van 1 parameter. De functie dient eigenlijk alleen met complete meetjaren te worden gebruikt.
+#'
+#' @param data Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in \code{import_fys_chem()}.
+#' 
+#' @param meetpuntendf dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in \code{import_meetpunten()}.
+#' Probeert default ook met deze functie een meetpuntendf te maken.
+#' 
+#' @param parameterdf dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in \code{import_parameters()}.
+#' Probeert default ook met deze functie een parameterdf te maken.
+#' 
+#' @param mp character. Optioneel, Meetpuntcode van het betreffende meetpunt. Neemt anders het eerste meetpunt uit `data`
+#' 
+#' @param parnr character. Optioneel,Parameternummer van het betrffende meetpunt. Neemt anders het eerste parameternummer uit `data`
+#' 
+#' @param ... Heeft geen functie, maar kan gebruikt worden om overbodige parameters te negeren
+#'
+#' @importFrom  scales rescale_none
+#'
+#' @return Een ggplot boxplot grafiek. Het is mogelijk om achteraf andere ggplot objecten toe te voegen met `+`
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' basis_boxplot_grafiek <- boxplot_basis(data = chloride_myplace, 
+#'                     parameterdf, meetpuntendf) 
+#' }
+boxplot_basis <- function(data, 
+                         
+                          meetpuntendf = import_meetpunten(),
+                          parameterdf = import_parameters(),
+                          mp = NULL,
+                          parnr = NULL,
+                          ...){
+
+  if (is.null(mp)) {mp <- data[[1,"mp"]]}
+  mpomsch <- opzoeken_waarde(meetpuntendf, sleutel = mp, attribuut =  "mpomsch", sleutelkolom = "mp")
+  
+  if (is.null(parnr)) {parnr <- data[[1,"parnr"]]}
+  parameternaam <- opzoeken_waarde(parameterdf, sleutel = parnr, attribuut = "parnaamlang", sleutelkolom = "parnr")
+  eenheid <- opzoeken_waarde(parameterdf, parnr, "eenheid")
+  
+  min_y <- min(data$waarde)
+  max_y <- max(data$waarde)
+  if (min_y == max_y) { ylimieten <- c(0, max_y * 1.1)} else if (min_y / (max_y - min_y) > 1) {ylimieten <- c(min_y * 0.95, max_y * 1.05)} else {ylimieten <- c(0, max_y * 1.1)}
+  xlabels <- data %>% add_jaar() %>% select(jaar) %>% distinct() %>% c(recursive = TRUE, use.names = FALSE)
+  
+  grafiek <- data %>% add_jaar %>% 
+    ggplot2::ggplot(ggplot2::aes(x = jaar, y = waarde, group = jaar)) +
+    ggplot2::geom_boxplot(col = hhskblauw, fill = hhskgroen) +
+    ggplot2::labs(title = paste("Meetpunt:", mp,"-", mpomsch), subtitle = paste("Parameter:", parameternaam)) +
+    ggplot2::ylab(eenheid) +
+    ggplot2::scale_y_continuous(limits = ylimieten, expand = c(0,0), oob = scales::rescale_none ) +
+    ggplot2::xlab("") +
+    ggplot2::scale_x_continuous(breaks = xlabels) + 
+    hhskthema() +
+    ggplot2::theme(panel.grid.minor.x = ggplot2::element_blank())
+  
+  grafiek
+  
+}# end of function
+
+
 
 
 # titelpagina_internet ----------------------------------------------------
@@ -264,10 +333,12 @@ add_norm_lijnen <- function(plot, parnr, normen){
 #' @param export_pad String. Locatie waar de pdf's geplaatst worden
 #' @param lijst_parnrs Een optionele vector met parameternummers die meegenomen worden.
 #' @param min_aantal_waarden Het minimale aantal waarnemingen wat vereist is voor een grafiek
+#' @param grafiekenfunctie Het is mogelijk om een alternatieve functie op te geven om de grafieken te maken. De default is \code{grafiek_basis()}
 #'
 #' @import dplyr
 #'
-#' @return
+#' @return Per meetpunt in \code{data} een pdf-document met per parameter een grafiek
+#' 
 #' @export
 #'
 #' @examples
@@ -284,7 +355,8 @@ grafieken_internet <- function(data,
                                plot_normen = TRUE,
                                export_pad = "export/grafieken",
                                lijst_parnrs = NULL,
-                               min_aantal_waarden = 12){
+                               min_aantal_waarden = 12,
+                               grafiekenfunctie = grafiek_basis){
   
   if (is.null(lijst_parnrs)) {lijst_parnrs <- c(1:99,107,200:401,403:505,507:899,1000:2999)}
   
@@ -294,7 +366,8 @@ grafieken_internet <- function(data,
     dplyr::group_by(mp, parnr) %>% 
     dplyr::mutate(aantal = n(), 
            min_is_max = min(waarde, na.rm = TRUE) == max(waarde, na.rm = TRUE),
-           alleen_detectiegrens = aantal == nrow(dplyr::filter(., detectiegrens == "<")) ) %>%  
+           aantal_detectiegrens = sum(detectiegrens == "<", na.rm = TRUE),
+           alleen_detectiegrens = aantal == aantal_detectiegrens) %>%  
     dplyr::filter(aantal >= min_aantal_waarden, !min_is_max, !alleen_detectiegrens) %>% 
     dplyr::select(mp, parnr, datum, detectiegrens, waarde) %>%
     dplyr::ungroup()
@@ -305,22 +378,21 @@ grafieken_internet <- function(data,
     data_mp <- data %>% dplyr::filter(mp == meetpunt)
     
     filename <- paste0(export_pad, "/", meetpunt, ".pdf")
-    pdf(file = filename, width = 16, height = 8)
+    grDevices::pdf(file = filename, width = 16, height = 8)
     #aantalplots <- 0 #om lege plots later te verwijderen
-    
     titelpagina_internet(inclusief_normen = plot_normen)    
     
     for (parameternr in sort(unique(data_mp$parnr))) {
       
       grafiek <- dplyr::filter(data_mp, parnr == parameternr) %>% 
-        grafiek_basis(mp = meetpunt, parnr = parameternr, meetpuntendf = meetpuntendf, parameterdf = parameterdf, plot_loess = parameternr < 1000) %>% 
+        grafiekenfunctie(mp = meetpunt, parnr = parameternr, meetpuntendf = meetpuntendf, parameterdf = parameterdf, plot_loess = parameternr < 1000) %>% 
         {if (parameternr >= 1000 & plot_normen) {add_norm_lijnen(., parameternr, normen)} else {.} }
       
       suppressMessages(print(grafiek))
-      aantalplots <- aantalplots + 1
+      #aantalplots <- aantalplots + 1
     }# einde parameterloop
     
-    dev.off()
+    grDevices::dev.off()
     #if (aantalplots == 0) {file.remove(filename)}#verwijdert lege plots
   }#einde meetpuntloop
     
