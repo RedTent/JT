@@ -166,7 +166,7 @@ boxplot_basis <- function(data,
   min_y <- min(data$waarde)
   max_y <- max(data$waarde)
   if (min_y == max_y) { ylimieten <- c(0, max_y * 1.1)} else if (min_y / (max_y - min_y) > 1) {ylimieten <- c(min_y * 0.95, max_y * 1.05)} else {ylimieten <- c(0, max_y * 1.1)}
-  xlabels <- data %>% add_jaar() %>% select(jaar) %>% distinct() %>% c(recursive = TRUE, use.names = FALSE)
+  xlabels <- data %>% add_jaar() %>% select(jaar) %>% distinct() %>% my_c()
   
   grafiek <- data %>% add_jaar %>% 
     ggplot2::ggplot(ggplot2::aes(x = jaar, y = waarde, group = jaar)) +

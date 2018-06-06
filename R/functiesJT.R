@@ -1,4 +1,4 @@
-# clean_vector ####
+# my_c  - a clean_vector ####
 #' Create a single clean vector
 #'
 #'@description A helper function for the basic \code{c()} function to remove names and create a singular vector.
@@ -10,7 +10,7 @@
 #'
 #' @export
 #'
-clean_vector <- function(vector){
+my_c <- function(vector){
   c(vector, use.names = FALSE, recursive = TRUE)
 }
 
@@ -31,8 +31,8 @@ clean_vector <- function(vector){
 #' @export
 #'
 df_to_named_list <- function(df, items = 1, names = 2){
-  values <- dplyr::select(df, items) %>% clean_vector()
-  names(values) <- dplyr::select(df, names) %>% clean_vector()
+  values <- dplyr::select(df, items) %>% my_c()
+  names(values) <- dplyr::select(df, names) %>% my_c()
   values
 }
 
