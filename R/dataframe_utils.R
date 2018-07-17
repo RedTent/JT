@@ -79,3 +79,23 @@ opzoeken_waarde <- function(df, sleutel, attribuut, sleutelkolom = 1){
   df[df[[sleutelkolom]] == sleutel, attribuut] %>% 
     c(use.names = FALSE, recursive = TRUE)
 }
+
+
+# Randomize ---------------------------------------------------------------
+
+
+#' Randomize
+#' 
+#' Verandert de rijen in willekeurige volgorde
+#'
+#' @param data Een dataframe
+#'
+#' @return Hetzelfde dataframe als de input in willekeurige volgorde
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' randomize(mtcars)
+#' }
+randomize <- function(data){data[sample(nrow(data)),]}
