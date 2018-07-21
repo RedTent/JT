@@ -39,7 +39,11 @@ Met deze stat kunnen aan een circle-pack labels worden toegevoegd aan het centru
 \examples{
 \dontrun{
  
-ggplot(data, aes(y = mpg, label = name)) + stat_packcircles() + stat_packcircles_center
+ggplot(data, aes(y = mpg, label = name)) + stat_packcircles() + stat_packcircles_label()
+
+ggplot(data, aes(y = mpg, label = name)) + 
+    geom_polygon(stat = StatPackCircles) + 
+    geom_text(stat = StatPackCirclesLabel)
 }
 
 }

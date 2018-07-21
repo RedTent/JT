@@ -19,3 +19,6 @@ Returns a named list
 \description{
 This function creates a named list from two dataframe columns
 }
+\details{
+Deprecated use \code{tibble::deframe()} instead
+}

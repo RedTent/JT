@@ -40,6 +40,8 @@ Met deze stat kan op basis van kwantitatieve waarden een circle-pack worden gema
 \dontrun{
  
 ggplot(data, aes(y = mpg)) + stat_packcircles()
+
+ggplot(data, aes(y = mpg)) + geom_polygon(stat = StatPackCircles)
 }
 
 }

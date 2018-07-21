@@ -17,6 +17,8 @@ my_c <- function(vector){
 # df_to_named_list ####
 
 #' Create a named list
+#' 
+#' Deprecated use \code{tibble::deframe()} instead
 #'
 #' @description This function creates a named list from two dataframe columns
 #'
@@ -31,6 +33,7 @@ my_c <- function(vector){
 #' @export
 #'
 df_to_named_list <- function(df, items = 1, names = 2){
+  message("df_to_named_list is deprecated. Use tibble::deframe instead")
   values <- dplyr::select(df, items) %>% my_c()
   names(values) <- dplyr::select(df, names) %>% my_c()
   values

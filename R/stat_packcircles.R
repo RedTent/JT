@@ -24,6 +24,8 @@
 #' \dontrun{
 #'  
 #' ggplot(data, aes(y = mpg)) + stat_packcircles()
+#' 
+#' ggplot(data, aes(y = mpg)) + geom_polygon(stat = StatPackCircles)
 #' }
 #' 
 stat_packcircles <- function(mapping = NULL, data = NULL, geom = "polygon",
@@ -81,7 +83,11 @@ StatPackCircles <- ggplot2::ggproto("StatPackCircles", ggplot2::Stat,
 #' @examples
 #' \dontrun{
 #'  
-#' ggplot(data, aes(y = mpg, label = name)) + stat_packcircles() + stat_packcircles_center
+#' ggplot(data, aes(y = mpg, label = name)) + stat_packcircles() + stat_packcircles_label()
+#' 
+#' ggplot(data, aes(y = mpg, label = name)) + 
+#'     geom_polygon(stat = StatPackCircles) + 
+#'     geom_text(stat = StatPackCirclesLabel)
 #' }
 #' 
 stat_packcircles_label <- function(mapping = NULL, data = NULL, geom = "text",
