@@ -158,7 +158,7 @@ import_biologie <- function(biologie_csv = "data/biologie.csv"){
   
   biodf <- readr::read_csv2(biologie_csv, col_types = readr::cols(datum = readr::col_date(format = "%d-%m-%Y %H:%M:%S"))) %>% 
     dplyr::mutate(monster_id = dplyr::group_indices(., mp, datum, methode)) %>% 
-    dplyr::select(-stadium,-stadiumwaarde) %>% 
+    dplyr::select(-dplyr::starts_with("stadium")) %>% 
     dplyr::distinct()
   
   biodf
