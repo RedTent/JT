@@ -117,7 +117,7 @@ import_parameters <- function(parameter_csv = "data/parameters.csv"){
 #' Importeer biologie-meetwaarden
 #' 
 #' De functie helpt bij het importeren van biologische data. De functie leest de kolom \code{datum} als \code{Date}.
-#' Verder wordet er een kolom \code{monster_id} toegevoegd op basis van meetpunt, datum en methode.
+#' Verder wordt er een kolom \code{monster_id} toegevoegd op basis van meetpunt, datum en methode.
 #' 
 #' @param biologie_csv Een characterstring met het pad naar het te importeren bestand. Het bestand moet in 
 #' csv-formaat zijn met \code{;} als scheidingsteken en \code{,} als scheidingsteken. Default is \code{"data/biologie.csv"}. 
@@ -138,7 +138,7 @@ import_parameters <- function(parameter_csv = "data/parameters.csv"){
 #'  \item \code{taxniv} Code voor het taxonomisch niveau
 #'  }
 #'
-#' @describeIn import_bio Importeer biologische meetwaarden zonder stadiumwaarden
+#' @describeIn import_biologie Importeer biologische meetwaarden zonder stadiumwaarden
 #'
 #' @return Een dataframe met biologische meetwaarden.
 #' 
@@ -150,31 +150,71 @@ import_parameters <- function(parameter_csv = "data/parameters.csv"){
 #' @examples
 #' \dontrun{
 #' 
-#' biologie <- import_bio()
-#' biologie_met_stadium <- import_bio_stadia()
+#' biologie <- import_biologie()
+#' biologie_met_stadium <- import_biologie_stadia()
 #' 
 #' }
-import_bio <- function(biologie_csv = "data/biologie.csv"){
+import_biologie <- function(biologie_csv = "data/biologie.csv"){
   
   biodf <- readr::read_csv2(biologie_csv, col_types = readr::cols(datum = readr::col_date(format = "%d-%m-%Y %H:%M:%S"))) %>% 
-    dplyr::mutate(monster_id = dplyr::group_indices(biodf, mp, datum, methode)) %>% 
+    dplyr::mutate(monster_id = dplyr::group_indices(., mp, datum, methode)) %>% 
     dplyr::select(-stadium,-stadiumwaarde) %>% 
     dplyr::distinct()
   
   biodf
 }
 
-#' @describeIn import_bio Importeer biologische meetwaarden met stadium informatie
+#' @describeIn import_biologie Importeer biologische meetwaarden met stadium informatie
 #' @export
-import_bio_stadia <- function(biologie_csv = "data/biologie.csv"){
+import_biologie_stadia <- function(biologie_csv = "data/biologie.csv"){
   
   biodf <- readr::read_csv2(biologie_csv, col_types = readr::cols(datum = readr::col_date(format = "%d-%m-%Y %H:%M:%S"))) %>% 
-    dplyr::mutate(monster_id = dplyr::group_indices(biodf, mp, datum, methode))
+    dplyr::mutate(monster_id = dplyr::group_indices(., mp, datum, methode))
   
   biodf
 }
 
 
+#' Importeer biologische monsterkenmerken
+#' 
+#' De functie helpt bij het importeren van biologische monsterkenmerken. De functie leest de kolom \code{datum} als \code{Date}.
+#' Verder wordt er een kolom \code{monster_id} toegevoegd op basis van meetpunt, datum en methode.
+#' 
+#' @param kenmerken_csv Een characterstring met het pad naar het te importeren bestand. Het bestand moet in 
+#' csv-formaat zijn met \code{;} als scheidingsteken en \code{,} als scheidingsteken. Default is \code{"data/biologie_kenmerken.csv"}. 
+#' Het is ook mogelijk om een zip-bestand in te lezen waar het csv-bestand in zit.
+#'
+#' @return Een dataframe met biologische kenmerken
+#' 
+#' @export
+#' 
+#' @details Er is enige vrijheid t.a.v. de inhoud van het bestand. De functie verwacht ten minste een kolom \code{datum}.
+#' Een standaard bestand heeft gewoonlijk de kolommen:
+#'  \itemize{
+#'  \item \code{mp} Code met de aanduiding van het meetpunt
+#'  \item \code{datum} Datum in het format dd-mm-yyyy hh:mm:ss
+#'  \item \code{taxatype} Type taxon cf. aquo
+#'  \item \code{kenmerkcode} Code van het biologische kenmerk
+#'  \item \code{kenmerknaam} Beschrijving van het biologische kenmerk
+#'  \item \code{waarde} De numerieke waarde van het kenmerk. Is 0 voor tekstwaarden en klassewaarden
+#'  \item \code{waarde_tekst} De tekstwaarde van het kenmerk indien het een tekstkenmerk betreft
+#'  \item \code{waarde_klasse} De numerieke klasse-aanduiding
+#'  \item \code{waarde_klassenaam} De beschrijving van de klasse
+#'  }
+#'  
+#' @examples
+#' \dontrun{
+#' 
+#' biologische_kenmerken <- import_biologische_kenmerken(kenmerken_csv = "data/biologie_kenmerken.csv")
+#' 
+#' }
+#' 
+#' 
+import_biologische_kenmerken <- function(kenmerken_csv = "data/biologie_kenmerken.csv"){
+  
+  bio_km_df <- readr::read_csv2(kenmerken_csv,col_types = readr::cols(datum = readr::col_date(format = "%d-%m-%Y %H:%M:%S")))
+  bio_km_df
+}
 
 
 #' Importeren RIVM normen
