@@ -25,7 +25,7 @@
 #' 
 #' data %>% add_maand()
 #' }
-add_jaar_maand <- function(dataframe, datum="datum"){
+add_jaar_maand <- function(dataframe, datum = "datum"){
 
   dataframe$jaar <- as.integer(lubridate::year(dataframe[[datum]]))
   dataframe$maand <- as.integer(lubridate::month(dataframe[[datum]]))
@@ -35,7 +35,7 @@ add_jaar_maand <- function(dataframe, datum="datum"){
 
 #' @describeIn add_jaar_maand Voeg een kolom toe met het jaar.
 #' @export
-add_jaar <- function(dataframe, datum="datum"){
+add_jaar <- function(dataframe, datum = "datum"){
   
   dataframe$jaar <- as.integer(lubridate::year(dataframe[[datum]]))
   dataframe
@@ -44,7 +44,7 @@ add_jaar <- function(dataframe, datum="datum"){
 
 #' @describeIn add_jaar_maand Voeg een kolom toe met de maand.
 #' @export
-add_maand <- function(dataframe, datum="datum"){
+add_maand <- function(dataframe, datum = "datum"){
   
   dataframe$maand <- as.integer(lubridate::month(dataframe[[datum]]))
   dataframe
@@ -99,3 +99,44 @@ opzoeken_waarde <- function(df, sleutel, attribuut, sleutelkolom = 1){
 #' randomize(mtcars)
 #' }
 randomize <- function(data){data[sample(nrow(data)),]}
+
+
+# Latitude en longitude ---------------------------------------------------
+
+#' Toevoegen van latidute en longitude
+#' 
+#' De functie voegt de latitude en longitude (WGS84) toe aan een dataframe op basis van RD-coordinaten
+#'
+#' @param data Dataframe waar latitude en longitude aan toegevoegd worden
+#' @param x_coord Character. Kolomnaam van de x-coordinaat in RD-stelsel (EPSG:28992). Default is \code{"x"}
+#' @param y_coord Character. Kolomnaam van de y-coordinaat in RD-stelsel (EPSG:28992). Default is \code{"y"}
+#'
+#' @return Het input dataframe met een kolom \code{long} en \code{lat} toegevoegd.
+#' 
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' meetpunten %>% add_lat_long(x_coord = "x", y_coord = "y")
+#' }
+#' 
+add_lat_long <- function(data, x_coord = "x", y_coord = "y"){
+  
+  longlat <- 
+    data %>% 
+    dplyr::mutate(long = .[[x_coord]], lat = .[[y_coord]]) %>% 
+    dplyr::filter(long != 0, long != 0)
+  
+  sp::coordinates(longlat) = ~long+lat
+  sp::proj4string(longlat) <- sp::CRS("+init=EPSG:28992")
+  longlat <- sp::spTransform(longlat,"+init=EPSG:4326")
+  
+  added_lat_long <- dplyr::left_join(data, select(dplyr::as_data_frame(longlat), mp, long, lat), by = "mp")
+  
+  added_lat_long
+  
+}
+  
+  
+  

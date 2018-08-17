@@ -20,4 +20,6 @@ Imports: dplyr,
     scales,
     rlang,
     purrr,
-    packcircles
+    packcircles,
+    sp,
+    rgdal
