@@ -1,10 +1,6 @@
 [![Build Status](https://travis-ci.org/RedTent/JT.svg?branch=master)](https://travis-ci.org/RedTent/JT)
 
-![](data-raw/images/JTIP.png)
-
-
-
-# Package JT
+# Package JT ![](data-raw/images/JTIP.png)
 
 Bevat uiteenlopende functies voor gebruik door JT
 
@@ -13,6 +9,8 @@ Bevat uiteenlopende functies voor gebruik door JT
 * `add_jaar_maand()` - voeg kolommen met jaar en/of maand toe aan een dataframe
 * `add_jaar()`
 * `add_maand()`
+
+* `add_lat_long` - voeg kolommen met longitude en latitude toe o.b.v. RD-coordinaten
 
 * `opzoeken_waarde()` - zoek een waarde op in een dataframe op basis van een key
 
@@ -34,6 +32,10 @@ Bevat uiteenlopende functies voor gebruik door JT
 *RIVM*
 
 * `import_normen_rivm()` - importeren van RIVM-normen zoals te downloaden van [RIVM Risico's van stoffen](https://rvszoeksysteem.rivm.nl/)
+
+## Data-verwerking
+
+* `toetsing_gbm()` - Toets de metingen van gewasbeschermingsmiddelen
 
 ## Grafieken
 
