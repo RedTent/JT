@@ -9,12 +9,12 @@ grafiek_basis(data, meetpuntendf = import_meetpunten(),
   plot_loess = TRUE)
 }
 \arguments{
-\item{data}{Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in \code{import_fys_chem()}.}
+\item{data}{Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in \code{\link{import_fys_chem}}.}
 
-\item{meetpuntendf}{dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in \code{import_meetpunten()}.
+\item{meetpuntendf}{dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in \code{\link{import_meetpunten}}.
 Probeert default ook met deze functie een meetpuntendf te maken.#'}
 
-\item{parameterdf}{dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in \code{import_parameters()}.
+\item{parameterdf}{dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in \code{\link{import_parameters}}.
 Probeert default ook met deze functie een parameterdf te maken.}
 
 \item{mp}{character. Optioneel, Meetpuntcode van het betreffende meetpunt. Neemt anders het eerste meetpunt uit \code{data}}

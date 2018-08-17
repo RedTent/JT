@@ -2,8 +2,8 @@
 #' 
 #' Met deze stat kan op basis van kwantitatieve waarden een circle-pack worden gemaakt.
 #'
-#' @param mapping The mapping of aesthetics to use for this stat. Inherits from \code{ggplot()}
-#' @param data The data to use for this stat. Inherits from \code{ggplot()}
+#' @param mapping The mapping of aesthetics to use for this stat. Inherits from \code{ggplot}
+#' @param data The data to use for this stat. Inherits from \code{ggplot}
 #' @param geom The geom to use. Defaults to polygon
 #' @param position Position adjustment, either as a string, or the result of a call to a position adjustment function.
 #' @param na.rm If \code{FALSE}, the default, missing values are removed with a warning. 

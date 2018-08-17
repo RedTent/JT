@@ -10,7 +10,7 @@ import_normen_rivm(normen = "data/normen.txt",
 \arguments{
 \item{normen}{Het normenbestand zoals dit van de RIVM website gedownload kan worden. Default is \code{"data/normen.txt"}}
 
-\item{parameterdf}{Een parameterbestand. Zie ook \code{import_parameters()}. Voor de koppeling zijn de kolommen \code{aquo_parcode}, 
+\item{parameterdf}{Een parameterbestand. Zie ook \code{\link{import_parameters}}. Voor de koppeling zijn de kolommen \code{aquo_parcode}, 
 \code{aquo_eenheid} en \code{aquo_compartiment} noodzakelijk. Default wordt een nieuw parameterbestand ingelezen met 
 \code{import_parameters()}}
 }

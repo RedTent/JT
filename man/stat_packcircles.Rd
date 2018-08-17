@@ -9,9 +9,9 @@ stat_packcircles(mapping = NULL, data = NULL, geom = "polygon",
   inherit.aes = TRUE, ...)
 }
 \arguments{
-\item{mapping}{The mapping of aesthetics to use for this stat. Inherits from \code{ggplot()}}
+\item{mapping}{The mapping of aesthetics to use for this stat. Inherits from \code{ggplot}}
 
-\item{data}{The data to use for this stat. Inherits from \code{ggplot()}}
+\item{data}{The data to use for this stat. Inherits from \code{ggplot}}
 
 \item{geom}{The geom to use. Defaults to polygon}
 

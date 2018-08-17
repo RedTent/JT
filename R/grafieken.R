@@ -49,12 +49,12 @@ hhskthema <- function(){
 #'
 #' Deze functie plot een tijdreeksgrafiek van 1 meetpunt van 1 parameter.
 #'
-#' @param data Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in \code{import_fys_chem()}.
+#' @param data Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in \code{\link{import_fys_chem}}.
 #' 
-#' @param meetpuntendf dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in \code{import_meetpunten()}.
+#' @param meetpuntendf dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in \code{\link{import_meetpunten}}.
 #' Probeert default ook met deze functie een meetpuntendf te maken.#' 
 #' 
-#' @param parameterdf dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in \code{import_parameters()}.
+#' @param parameterdf dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in \code{\link{import_parameters}}.
 #' Probeert default ook met deze functie een parameterdf te maken.
 #' 
 #' @param mp character. Optioneel, Meetpuntcode van het betreffende meetpunt. Neemt anders het eerste meetpunt uit \code{data}
@@ -123,12 +123,15 @@ grafiek_basis <- function(data,
 #' 
 #' Deze functie plot een boxplot per jaar van 1 meetpunt van 1 parameter. De functie dient eigenlijk alleen met complete meetjaren te worden gebruikt.
 #'
-#' @param data Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. Kolommen zoals beschreven in \code{import_fys_chem()}.
+#' @param data Een dataframe met de gegevens van 1 tijdreeks, dus van 1 meetpunt en 1 parameter. 
+#' Kolommen zoals beschreven in \code{\link{import_fys_chem}}.
 #' 
-#' @param meetpuntendf dataframe. Een opzoektabel voor de locatie-omschrijving. Kolommen zoals beschreven in \code{import_meetpunten()}.
+#' @param meetpuntendf dataframe. Een opzoektabel voor de locatie-omschrijving. 
+#' Kolommen zoals beschreven in \code{\link{import_meetpunten}}.
 #' Probeert default ook met deze functie een meetpuntendf te maken.
 #' 
-#' @param parameterdf dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. Kolommen zoals beschreven in \code{import_parameters()}.
+#' @param parameterdf dataframe. Een opzoektabel voor de uitgebreide parameternaam en eenheid. 
+#' Kolommen zoals beschreven in \code{\link{import_parameters}}.
 #' Probeert default ook met deze functie een parameterdf te maken.
 #' 
 #' @param mp character. Optioneel, Meetpuntcode van het betreffende meetpunt. Neemt anders het eerste meetpunt uit `data`
@@ -136,8 +139,6 @@ grafiek_basis <- function(data,
 #' @param parnr character. Optioneel,Parameternummer van het betrffende meetpunt. Neemt anders het eerste parameternummer uit `data`
 #' 
 #' @param ... Heeft geen functie, maar kan gebruikt worden om overbodige parameters te negeren
-#'
-#' @importFrom  scales rescale_none
 #'
 #' @return Een ggplot boxplot grafiek. Het is mogelijk om achteraf andere ggplot objecten toe te voegen met `+`
 #' @export
@@ -322,18 +323,19 @@ add_norm_lijnen <- function(plot, parnr, normen){
 
 #' Maak grafieken voor het internet
 #'
-#' Deze functie maakt per meetpunt een pdf-document met een grafiek, met de functie \code{grafiek_basis()}, voor elke parameter.
+#' Deze functie maakt per meetpunt een pdf-document met een grafiek, met de functie \code{\link{grafiek_basis}}, voor elke parameter.
 #'
 #' @param data Een dataframe met ruwe gegevens om grafieken van te maken. Deze moet tenminste de kolommen mp, parnr, datum, 
 #' detectiegrens en waarde hebben.
-#' @param meetpuntendf Een dataframe met mp en mpomsch voor de titel van de grafiek. Zie ook \code{import_meetpunten()}
-#' @param parameterdf Een dataframe met parnr eenheid en parnaamlang voor de titel van de grafiek. Zie ook \code{import_parameters()}
-#' @param normen Een dataframe met de normen. Zie ook \code{import_normen_rivm()}
+#' @param meetpuntendf Een dataframe met mp en mpomsch voor de titel van de grafiek. Zie ook \code{\link{import_meetpunten}}
+#' @param parameterdf Een dataframe met parnr eenheid en parnaamlang voor de titel van de grafiek. Zie ook \code{\link{import_parameters}}
+#' @param normen Een dataframe met de normen. Zie ook \code{\link{import_normen_rivm}}
 #' @param plot_normen Logical. Switch om wel geen normen te plotten. Default is \code{TRUE}
 #' @param export_pad String. Locatie waar de pdf's geplaatst worden
 #' @param lijst_parnrs Een optionele vector met parameternummers die meegenomen worden.
 #' @param min_aantal_waarden Het minimale aantal waarnemingen wat vereist is voor een grafiek
-#' @param grafiekenfunctie Het is mogelijk om een alternatieve functie op te geven om de grafieken te maken. De default is \code{grafiek_basis()}
+#' @param grafiekenfunctie Het is mogelijk om een alternatieve functie op te geven om de grafieken te maken. 
+#' De default is \code{\link{grafiek_basis}}
 #'
 #' @import dplyr
 #'

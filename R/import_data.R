@@ -226,7 +226,7 @@ import_biologische_kenmerken <- function(kenmerken_csv = "data/biologie_kenmerke
 #' slechts een geringe afwijking (< 5 \%) en is voor de toetsing niet echt relevant. Alleen gewasbeschermingsmiddelen worden meegenomen.
 #'
 #' @param normen Het normenbestand zoals dit van de RIVM website gedownload kan worden. Default is \code{"data/normen.txt"}
-#' @param parameterdf Een parameterbestand. Zie ook \code{import_parameters()}. Voor de koppeling zijn de kolommen \code{aquo_parcode}, 
+#' @param parameterdf Een parameterbestand. Zie ook \code{\link{import_parameters}}. Voor de koppeling zijn de kolommen \code{aquo_parcode}, 
 #' \code{aquo_eenheid} en \code{aquo_compartiment} noodzakelijk. Default wordt een nieuw parameterbestand ingelezen met 
 #' \code{import_parameters()}
 #'
