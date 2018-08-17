@@ -36,7 +36,7 @@ toetsing <-
                 waarde_det_half = dplyr::if_else(detectiegrens == "<", waarde * factor_detectiegrens, waarde) ) %>%
   
   dplyr::group_by(mp, parnr, par, jaar) %>%
-  dplyr::summarise(aantal = dplyr::n(), 
+  dplyr::summarise(aantal = n(), 
                    aantal_det = sum(detectiegrens == "<"), 
                    MAX = max(waarde_det_half, na.rm = TRUE), 
                    JGM = mean(waarde_det_half, na.rm = TRUE), 
@@ -49,7 +49,7 @@ toetsing <-
          factor_P90 = P90 / norm_P90 ) %>%
   dplyr::rowwise() %>%
   
-  dplyr::mutate(hoogste_overschrijding = dplyr::if_else(aangetroffen == 1, max(factor_MAX, factor_JGM, factor_P90, na.rm = TRUE), 0), 
+  dplyr::mutate(hoogste_overschrijding = dplyr::if_else(aangetroffen, max(factor_MAX, factor_JGM, factor_P90, na.rm = TRUE), 0), 
                 normoverschrijding = dplyr::if_else(hoogste_overschrijding > 1, TRUE, FALSE) ) %>% 
   ungroup()
   
