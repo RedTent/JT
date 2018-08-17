@@ -4,5 +4,7 @@ language: R
 sudo: false
 cache: packages
 addons:
-  before_script:
-    - Rscript -e "install.packages('rgdal', type = 'source')"
+  apt:
+    packages:
+      - libgdal-dev
+      - libproj-dev
