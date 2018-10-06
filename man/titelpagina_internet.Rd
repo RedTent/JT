@@ -7,13 +7,13 @@
 titelpagina_internet(inclusief_normen = TRUE)
 }
 \arguments{
-\item{inclusief_normen}{logical Bepaald of de lijnen met normen op de titelpagina worden weergegeven. Default is `TRUE`}
+\item{inclusief_normen}{logical Bepaald of de lijnen met normen op de titelpagina worden weergegeven. Default is \code{TRUE}}
 }
 \value{
 Een titelpagina voor de grafieken
 }
 \description{
-Creeert een titelpagina voor grafieken zoals deze worden geproduceerd met [grafiek_basis]. Dient gebruikt te worden binnen een graphic device (bijvoorbeeld `pdf()`).
+Creeert een titelpagina voor grafieken zoals deze worden geproduceerd met \link{grafiek_basis}. Dient gebruikt te worden binnen een graphic device (bijvoorbeeld \code{pdf()}).
 }
 \examples{
 \dontrun{

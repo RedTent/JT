@@ -10,8 +10,8 @@ import_biologie(biologie_csv = "data/biologie.csv")
 import_biologie_stadia(biologie_csv = "data/biologie.csv")
 }
 \arguments{
-\item{biologie_csv}{Een characterstring met het pad naar het te importeren bestand. Het bestand moet in 
-csv-formaat zijn met \code{;} als scheidingsteken en \code{,} als scheidingsteken. Default is \code{"data/biologie.csv"}. 
+\item{biologie_csv}{Een characterstring met het pad naar het te importeren bestand. Het bestand moet in
+csv-formaat zijn met \code{;} als scheidingsteken en \code{,} als scheidingsteken. Default is \code{"data/biologie.csv"}.
 Het is ook mogelijk om een zip-bestand in te lezen waar het csv-bestand in zit.}
 }
 \value{
@@ -22,20 +22,20 @@ De functie helpt bij het importeren van biologische data. De functie leest de ko
 Verder wordt er een kolom \code{monster_id} toegevoegd op basis van meetpunt, datum en methode.
 }
 \details{
-Er is enige vrijheid t.a.v. de inhoud van het bestand. De functie verwacht ten minste een kolom 
+Er is enige vrijheid t.a.v. de inhoud van het bestand. De functie verwacht ten minste een kolom
 \code{mp}, \code{datum}, \code{methode}, \code{stadium} en \code{stadiumwaarde}. Een standaard bestand heeft gewoonlijk de kolommen:
- \itemize{
- \item \code{mp} Code met de aanduiding van het meetpunt
- \item \code{datum} Datum in het format dd-mm-yyyy hh:mm:ss
- \item \code{taxatype} Type taxon cf. aquo
- \item \code{naam} Latijnse naam, conform TWN
- \item \code{nednaam} Nederlandse naam indien beschikbaar
- \item \code{waarde} Meetwaarde (voor alle stadia gezamenlijk)
- \item \code{stadium} Code voor het stadium, indien beschikbaar
- \item \code{stadiumwaarde} Meetwaarde voor het stadium, indien beschikbaar
- \item \code{eenheid} Eenheid van de meetwaarden
- \item \code{taxniv} Code voor het taxonomisch niveau
- }
+\itemize{
+\item \code{mp} Code met de aanduiding van het meetpunt
+\item \code{datum} Datum in het format dd-mm-yyyy hh:mm:ss
+\item \code{taxatype} Type taxon cf. aquo
+\item \code{naam} Latijnse naam, conform TWN
+\item \code{nednaam} Nederlandse naam indien beschikbaar
+\item \code{waarde} Meetwaarde (voor alle stadia gezamenlijk)
+\item \code{stadium} Code voor het stadium, indien beschikbaar
+\item \code{stadiumwaarde} Meetwaarde voor het stadium, indien beschikbaar
+\item \code{eenheid} Eenheid van de meetwaarden
+\item \code{taxniv} Code voor het taxonomisch niveau
+}
 }
 \section{Functions}{
 \itemize{

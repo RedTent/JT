@@ -13,7 +13,7 @@ opzoeken_waarde(df, sleutel, attribuut, sleutelkolom = 1)
 
 \item{attribuut}{De kolom(index) waar de op te halen waarde staat}
 
-\item{sleutelkolom}{Optioneel - de kolom(index) als character of integer. 
+\item{sleutelkolom}{Optioneel - de kolom(index) als character of integer.
 Standaard staat de eerste kolom als sleutelkolom ingesteld}
 }
 \value{

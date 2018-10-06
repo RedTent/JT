@@ -16,7 +16,7 @@ knmi_zonuren_dag(knmistation = "344")
 knmi_straling_dag(knmistation = "344")
 }
 \arguments{
-\item{knmistation}{Het nummer van het KNMI-station. Via de website zijn de nummers te vinden of via de 
+\item{knmistation}{Het nummer van het KNMI-station. Via de website zijn de nummers te vinden of via de
 functie \code{toon_knmi_stations}.}
 }
 \value{

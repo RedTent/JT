@@ -24,7 +24,7 @@ Probeert default ook met deze functie een parameterdf te maken.}
 \item{plot_loess}{logical. Wel of niet plotten van een LOESS-curve. Default is TRUE}
 }
 \value{
-Een ggplot grafiek. Het is mogelijk om achteraf andere ggplot objecten toe te voegen met `+`
+Een ggplot grafiek. Het is mogelijk om achteraf andere ggplot objecten toe te voegen met \code{+}
 }
 \description{
 Deze functie plot een tijdreeksgrafiek van 1 meetpunt van 1 parameter.

@@ -7,8 +7,8 @@
 import_biologische_kenmerken(kenmerken_csv = "data/biologie_kenmerken.csv")
 }
 \arguments{
-\item{kenmerken_csv}{Een characterstring met het pad naar het te importeren bestand. Het bestand moet in 
-csv-formaat zijn met \code{;} als scheidingsteken en \code{,} als scheidingsteken. Default is \code{"data/biologie_kenmerken.csv"}. 
+\item{kenmerken_csv}{Een characterstring met het pad naar het te importeren bestand. Het bestand moet in
+csv-formaat zijn met \code{;} als scheidingsteken en \code{,} als scheidingsteken. Default is \code{"data/biologie_kenmerken.csv"}.
 Het is ook mogelijk om een zip-bestand in te lezen waar het csv-bestand in zit.}
 }
 \value{
@@ -21,17 +21,17 @@ Verder wordt er een kolom \code{monster_id} toegevoegd op basis van meetpunt, da
 \details{
 Er is enige vrijheid t.a.v. de inhoud van het bestand. De functie verwacht ten minste een kolom \code{datum}.
 Een standaard bestand heeft gewoonlijk de kolommen:
- \itemize{
- \item \code{mp} Code met de aanduiding van het meetpunt
- \item \code{datum} Datum in het format dd-mm-yyyy hh:mm:ss
- \item \code{taxatype} Type taxon cf. aquo
- \item \code{kenmerkcode} Code van het biologische kenmerk
- \item \code{kenmerknaam} Beschrijving van het biologische kenmerk
- \item \code{waarde} De numerieke waarde van het kenmerk. Is 0 voor tekstwaarden en klassewaarden
- \item \code{waarde_tekst} De tekstwaarde van het kenmerk indien het een tekstkenmerk betreft
- \item \code{waarde_klasse} De numerieke klasse-aanduiding
- \item \code{waarde_klassenaam} De beschrijving van de klasse
- }
+\itemize{
+\item \code{mp} Code met de aanduiding van het meetpunt
+\item \code{datum} Datum in het format dd-mm-yyyy hh:mm:ss
+\item \code{taxatype} Type taxon cf. aquo
+\item \code{kenmerkcode} Code van het biologische kenmerk
+\item \code{kenmerknaam} Beschrijving van het biologische kenmerk
+\item \code{waarde} De numerieke waarde van het kenmerk. Is 0 voor tekstwaarden en klassewaarden
+\item \code{waarde_tekst} De tekstwaarde van het kenmerk indien het een tekstkenmerk betreft
+\item \code{waarde_klasse} De numerieke klasse-aanduiding
+\item \code{waarde_klassenaam} De beschrijving van de klasse
+}
 }
 \examples{
 \dontrun{

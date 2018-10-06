@@ -7,14 +7,14 @@
 knmi_dag_ruw(knmistation = "344")
 }
 \arguments{
-\item{knmistation}{Het nummer van het KNMI-station. Via de website zijn de nummers te vinden of via de 
+\item{knmistation}{Het nummer van het KNMI-station. Via de website zijn de nummers te vinden of via de
 functie \code{toon_knmi_stations}.}
 }
 \value{
 Een dataframe met de daggegevens van een KNMI-station (Rotterdam als default)
 }
 \description{
-De functie haalt de daggegevens van KNMI-station Rotterdam op van de website van het KNMI 
+De functie haalt de daggegevens van KNMI-station Rotterdam op van de website van het KNMI
 (\url{https://www.knmi.nl/nederland-nu/klimatologie/daggegevens}). De default is het KNMI-station Rotterdam.
 }
 \section{Verklaring kolommen}{
@@ -25,7 +25,7 @@ De functie haalt de daggegevens van KNMI-station Rotterdam op van de website van
 \item YYYYMMDD  = Datum (YYYY=jaar MM=maand DD=dag) / Date (YYYY=year MM=month DD=day)
 \item DDVEC     = Vectorgemiddelde windrichting in graden (360=noord, 90=oost, 180=zuid, 270=west, 0=windstil/variabel). Zie \url{http://www.knmi.nl/kennis-en-datacentrum/achtergrond/klimatologische-brochures-en-boeken} / Vector mean wind direction in degrees (360=north, 90=east, 180=south, 270=west, 0=calm/variable)
 \item FHVEC     = Vectorgemiddelde windsnelheid (in 0.1 m/s). Zie \url{http://www.knmi.nl/kennis-en-datacentrum/achtergrond/klimatologische-brochures-en-boeken} / Vector mean windspeed (in 0.1 m/s)
-\item FG        = Etmaalgemiddelde windsnelheid (in 0.1 m/s) / Daily mean windspeed (in 0.1 m/s) 
+\item FG        = Etmaalgemiddelde windsnelheid (in 0.1 m/s) / Daily mean windspeed (in 0.1 m/s)
 \item FHX       = Hoogste uurgemiddelde windsnelheid (in 0.1 m/s) / Maximum hourly mean windspeed (in 0.1 m/s)
 \item FHXH      = Uurvak waarin FHX is gemeten / Hourly division in which FHX was measured
 \item FHN       = Laagste uurgemiddelde windsnelheid (in 0.1 m/s) / Minimum hourly mean windspeed (in 0.1 m/s)
@@ -38,7 +38,7 @@ De functie haalt de daggegevens van KNMI-station Rotterdam op van de website van
 \item TX        = Maximum temperatuur (in 0.1 graden Celsius) / Maximum temperature (in 0.1 degrees Celsius)
 \item TXH       = Uurvak waarin TX is gemeten / Hourly division in which TX was measured
 \item T10N      = Minimum temperatuur op 10 cm hoogte (in 0.1 graden Celsius) / Minimum temperature at 10 cm above surface (in 0.1 degrees Celsius)
-\item T10NH     = 6-uurs tijdvak waarin T10N is gemeten / 6-hourly division in which T10N was measured; 6=0-6 UT, 12=6-12 UT, 18=12-18 UT, 24=18-24 UT 
+\item T10NH     = 6-uurs tijdvak waarin T10N is gemeten / 6-hourly division in which T10N was measured; 6=0-6 UT, 12=6-12 UT, 18=12-18 UT, 24=18-24 UT
 \item SQ        = Zonneschijnduur (in 0.1 uur) berekend uit de globale straling (-1 voor <0.05 uur) / Sunshine duration (in 0.1 hour) calculated from global radiation (-1 for <0.05 hour)
 \item SP        = Percentage van de langst mogelijke zonneschijnduur / Percentage of maximum potential sunshine duration
 \item Q         = Globale straling (in J/cm2) / Global radiation (in J/cm2)

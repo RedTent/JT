@@ -20,7 +20,7 @@ add_norm_lijnen(plot, parnr, normen)
 een geom-object met normen dat toegevoegd kan worden aan een plot, of een plot waar deze aan toegevoegd zijn.
 }
 \description{
-De functie \code{norm_lijnen} vertaalt de normen behorend bij een bepaald parameternummer in normlijnen die toegevoegd kunnen worden aan 
+De functie \code{norm_lijnen} vertaalt de normen behorend bij een bepaald parameternummer in normlijnen die toegevoegd kunnen worden aan
 een plot. De functie \code{add_norm_lijnen} voegt ze toe aan het plot.
 }
 \section{Functions}{

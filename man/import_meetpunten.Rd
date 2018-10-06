@@ -7,8 +7,8 @@
 import_meetpunten(meetpunten_csv = "data/meetpunten.csv")
 }
 \arguments{
-\item{meetpunten_csv}{Een characterstring met het pad naar het te importeren bestand. Het bestand moet in 
-csv-formaat zijn met \code{;} als scheidingsteken en \code{,} als scheidingsteken. Default is \code{"data/meetpunten.csv"}. 
+\item{meetpunten_csv}{Een characterstring met het pad naar het te importeren bestand. Het bestand moet in
+csv-formaat zijn met \code{;} als scheidingsteken en \code{,} als scheidingsteken. Default is \code{"data/meetpunten.csv"}.
 Het is ook mogelijk om een zip-bestand in te lezen waar het csv-bestand in zit.}
 }
 \value{
@@ -19,12 +19,12 @@ De functie helpt bij het importeren van meetpunt-data en bijbehorende meetpuntin
 }
 \details{
 De functie zet alle kolomkoppen om in lowercase. Er is enige vrijheid t.a.v. de inhoud van het bestand. Een standaard bestand heeft minimaal de kolommen:
- \itemize{
- \item \code{mp} - Code met de aanduiding van het meetpunt
- \item \code{mpomsch} - Omschrijving van het meetpunt
- \item \code{x} - X-coordinaat in het RD-stelsel
- \item \code{y} - Y-coordinaat in het RD-stelsel
- }
+\itemize{
+\item \code{mp} - Code met de aanduiding van het meetpunt
+\item \code{mpomsch} - Omschrijving van het meetpunt
+\item \code{x} - X-coordinaat in het RD-stelsel
+\item \code{y} - Y-coordinaat in het RD-stelsel
+}
 }
 \examples{
 \dontrun{

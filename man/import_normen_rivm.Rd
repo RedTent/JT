@@ -10,8 +10,8 @@ import_normen_rivm(normen = "data/normen.txt",
 \arguments{
 \item{normen}{Het normenbestand zoals dit van de RIVM website gedownload kan worden. Default is \code{"data/normen.txt"}}
 
-\item{parameterdf}{Een parameterbestand. Zie ook \code{\link{import_parameters}}. Voor de koppeling zijn de kolommen \code{aquo_parcode}, 
-\code{aquo_eenheid} en \code{aquo_compartiment} noodzakelijk. Default wordt een nieuw parameterbestand ingelezen met 
+\item{parameterdf}{Een parameterbestand. Zie ook \code{\link{import_parameters}}. Voor de koppeling zijn de kolommen \code{aquo_parcode},
+\code{aquo_eenheid} en \code{aquo_compartiment} noodzakelijk. Default wordt een nieuw parameterbestand ingelezen met
 \code{import_parameters()}}
 }
 \value{
@@ -19,9 +19,9 @@ Een dataframe met de kolommen \code{parnr}, \code{norm_JGM}, \code{norm_MAX} en 
 }
 \description{
 Het rivm stelt via de website \url{https://rvs.rivm.nl/zoeksysteem/} normen beschikbaar voor stoffen. Via deze website kunnen de
-normen voor zoet oppervlaktewater worden gedownload. Deze functie leest een bestand met de normen zoals 
-de website deze beschikbaar stelt en koppelt deze aan Dawaco-parameternummers. De koppeling is op basis van parametercode, 
-eenheid en compartiment. Hoedanigheid wordt niet meegenomen. Veel normen hebben als hoedanigheid nf. Dit verschil levert echter 
+normen voor zoet oppervlaktewater worden gedownload. Deze functie leest een bestand met de normen zoals
+de website deze beschikbaar stelt en koppelt deze aan Dawaco-parameternummers. De koppeling is op basis van parametercode,
+eenheid en compartiment. Hoedanigheid wordt niet meegenomen. Veel normen hebben als hoedanigheid nf. Dit verschil levert echter
 slechts een geringe afwijking (< 5 \%) en is voor de toetsing niet echt relevant. Alleen gewasbeschermingsmiddelen worden meegenomen.
 }
 \examples{

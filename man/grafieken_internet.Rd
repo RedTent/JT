@@ -11,7 +11,7 @@ grafieken_internet(data, meetpuntendf = import_meetpunten(),
   grafiekenfunctie = grafiek_basis)
 }
 \arguments{
-\item{data}{Een dataframe met ruwe gegevens om grafieken van te maken. Deze moet tenminste de kolommen mp, parnr, datum, 
+\item{data}{Een dataframe met ruwe gegevens om grafieken van te maken. Deze moet tenminste de kolommen mp, parnr, datum,
 detectiegrens en waarde hebben.}
 
 \item{meetpuntendf}{Een dataframe met mp en mpomsch voor de titel van de grafiek. Zie ook \code{\link{import_meetpunten}}}
@@ -28,7 +28,7 @@ detectiegrens en waarde hebben.}
 
 \item{min_aantal_waarden}{Het minimale aantal waarnemingen wat vereist is voor een grafiek}
 
-\item{grafiekenfunctie}{Het is mogelijk om een alternatieve functie op te geven om de grafieken te maken. 
+\item{grafiekenfunctie}{Het is mogelijk om een alternatieve functie op te geven om de grafieken te maken.
 De default is \code{\link{grafiek_basis}}}
 }
 \value{
