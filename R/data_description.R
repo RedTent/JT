@@ -24,3 +24,11 @@
 #' 
 #' Dit is het HHSK logo
 "logo"
+
+#' Maandnamen
+#' 
+#' Dit is een dataframe met 3 kolommen. 
+#' * `maand` - Integer met het maandnummer
+#' * `maand_namen` - Geordende factor met maandnamen, lowercase
+#' * `Maand_namen` - Geordende factor met maandnamen, titlecase
+"maand_namen"
