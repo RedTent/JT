@@ -72,7 +72,7 @@ add_maand <- function(dataframe, datum = "datum"){
 add_maandnaam <- function(dataframe, datum = "datum", titlecase = TRUE){
   index_kol <- 2 + as.integer(titlecase)
   index_row <- lubridate::month(dataframe[[datum]])
-  dataframe$maandnaam <- as.data.frame(maand_namen)[index_row, index_kol]
+  dataframe$maandnaam <- as.data.frame(JT::maand_namen)[index_row, index_kol]
   dataframe
   
 }

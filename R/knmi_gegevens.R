@@ -188,7 +188,7 @@ knmi_straling_dag <- function(knmistation="344"){
 #' toon_knmi_stations()
 #' 
 toon_knmi_stations <- function(){
-  knmi_stations_label <- knmi_stations %>% dplyr::mutate(label = paste(knmi_station, knmi_station_naam))
+  knmi_stations_label <- JT::knmi_stations %>% dplyr::mutate(label = paste(knmi_station, knmi_station_naam))
   leaflet::leaflet(knmi_stations_label) %>% leaflet::addTiles() %>% leaflet::addCircleMarkers(label = ~label)
   
 }
