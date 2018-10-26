@@ -51,6 +51,32 @@ add_maand <- function(dataframe, datum = "datum"){
   
 }
 
+#' Toevoegen van de maandnaam
+#' 
+#' Deze functie voegt de Nederlandse naam van een maand toe aan een dataframe op basis van de datum
+#'
+#' @param dataframe Dataframe waar een kolom maandnaam aan wordt toegevoegd
+#' @param datum Character met de naam van de datum kolom. De default is `"datum"`
+#' @param titlecase Logical. Maandnamen met hoofdletter of niet
+#'
+#' @return Een dataframe met de nieuwe kolom `maandnaam`
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' dataframe <- add_maandnaam(dataframe_orig)
+#' dataframe %>% add_maandnaam()
+#' dataframe %>% add_maandnaam(datum = "mijn_datumkolom", titlecase = FALSE)
+#' }
+add_maandnaam <- function(dataframe, datum = "datum", titlecase = TRUE){
+  index_kol <- 2 + as.integer(titlecase)
+  index_row <- lubridate::month(dataframe[[datum]])
+  dataframe$maandnaam <- as.data.frame(maand_namen)[index_row, index_kol]
+  dataframe
+  
+}
+
 # Opzoektabel -------------------------------------------------------------
 
 
