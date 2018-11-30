@@ -91,6 +91,74 @@ knmi_dag_ruw <- function(knmistation = "344"){
   data
 }
 
+#' Opschonen knmi data
+#'
+#' Deze functie schoont de KNMI-data die worden verkregen met [knmi_dag_ruw()] op en geeft ze 
+#' begrijpelijke Nederlandse namen
+#'
+#' @param ruwe_data Een dataframe met ruwe knmi dag data zoals gecreeerd door [knmi_dag_ruw()]
+#'
+#' @return Een dataframe met begrijpelijke Nederlandse namen en logische eenheden
+#' @export
+#'
+#' @section Eenheden:
+#' 
+#' - Windsnelheden zijn gemeten in m/s
+#' - Temperatuur is gemeten in graden Celsius
+#' - Straling is gemeten in J/cm2
+#' - Neerslag is gemeten is gemeten in mm
+#' - Luchtdruk is gemeten in hPa
+#' - Vochtigheid is gemeten in relatieve luchtvochtigheid
+#' - Verdamping is gemeten in mm
+#' 
+#' @examples
+#' \dontrun{
+#' 
+#' knmi_dag_ruw() %>% opschonen_knmi()
+#' }
+opschonen_knmi <- function(ruwe_data){
+  
+  ruwe_data %>% 
+    dplyr::transmute(
+      datum = YYYYMMDD,
+      wind_gem_vector = DDVEC,
+      wind_gem_snelheid_vector = FHVEC / 10,
+      wind_gem_snelheid = FG / 10,
+      wind_max_snelheid = FHX / 10,
+      wind_max_uur = FHXH,
+      wind_min_snelheid = FHN / 10,
+      wind_min_uur = FHNH,
+      windstoot_max = FXX / 10,
+      windstoot_uur = FXXH,
+      temp_gem = TG / 10,
+      temp_min = TN / 10,
+      temp_min_uur = TNH,
+      temp_max = TX / 10,
+      temp_max_uur = TXH,
+      temp_min_10cm = T10N / 10,
+      temp_min_10cm_tijdvak = T10NH,
+      zonneschijn = SQ / 10,
+      zonneschijn_perc = SP,
+      straling = Q,
+      neerslag_duur = DR / 10,
+      neerslag_som = RH / 10,
+      neerslag_max_uursom = RHX / 10,
+      neerslag_max_uur = RHXH,
+      luchtdruk_gem = PG / 10,
+      luchtdruk_max = PX / 10,
+      luchtdruk_max_uur = PXH,
+      luchtdruk_min = PN / 10,
+      luchtdruk_min_uur = PNH,
+      bewolkingsgraad = if_else(NG == 9, 1, NG / 8),
+      vochtigheid_gem = UG,
+      vochtigheid_max = UX,
+      vochtigheid_max_uur = UXH,
+      vochtigheid_min = UN,
+      vochtigheid_min_uur = UNH,
+      verdamping = EV24 / 10
+    )
+}
+
 #' KNMI-gegevens van neerslag, zonneschijn, straling en temperatuur
 #' 
 #' Deze functie haalt de gegevens op, van een specifiek KNMI-station. De functie maakt gebruik van \code{knmi_dag_ruw}.
