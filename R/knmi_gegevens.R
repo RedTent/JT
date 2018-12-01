@@ -79,7 +79,7 @@ knmi_dag_ruw <- function(knmistation = "344"){
   
   temp <- tempfile()
   utils::download.file(url,temp)
-  data <- readr::read_csv(unz(temp, bestandsnaam), skip = 47, trim_ws = TRUE, col_types = readr::cols(.default = readr::col_number(), YYYYMMDD = readr::col_date(format = "%Y%m%d")))
+  data <- readr::read_csv(unz(temp, bestandsnaam), skip = 44, trim_ws = TRUE, col_types = readr::cols(.default = readr::col_number(), YYYYMMDD = readr::col_date(format = "%Y%m%d")))
   unlink(temp)
   
   data <- data %>% dplyr::mutate_if(is.numeric, funs(ifelse(. == -1,0,.))) # vervang in alle numerieke kolommen -1 voor 0 anders waarde behouden
