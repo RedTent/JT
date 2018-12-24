@@ -131,38 +131,65 @@ randomize <- function(data){data[sample(nrow(data)),]}
 
 #' Toevoegen van latidute en longitude
 #' 
-#' De functie voegt de latitude en longitude (WGS84) toe aan een dataframe op basis van RD-coordinaten
+#' De functie voegt de latitude en longitude aan een dataframe op basis van coordinaten. Default is
+#' van RD-stelsel naar WGS84
 #'
-#' @param data Dataframe waar latitude en longitude aan toegevoegd worden
-#' @param x_coord Character. Kolomnaam van de x-coordinaat in RD-stelsel (EPSG:28992). Default is \code{"x"}
-#' @param y_coord Character. Kolomnaam van de y-coordinaat in RD-stelsel (EPSG:28992). Default is \code{"y"}
+#' @param df Dataframe met coordinaten
+#' @param x_coord Character. Kolom met de x-coordinaat
+#' @param y_coord Character. Kolom met de y-coordinaat
+#' @param source_crs Coordinaten Referentie Systeem van de bron coordinaten. Default is RD-stelsel.
+#' @param goal_crs Coordinaten Referentie Systeem van de doelcoordinaten. Default is WGS84.
 #'
-#' @return Het input dataframe met een kolom \code{long} en \code{lat} toegevoegd.
-#' 
+#' @return Geeft hetzelfde dataframe met een kolom long en lat toegevoegd.
 #' @export
+#'
+#' @examples
+#' 
+#' \dontrun{
+#' 
+#' df %>% add_lat_long()
+#' df %>% add_lat_long(x_coord = "my_x_column", y = "my_y_column")
+#' 
+#' }
+add_lat_long <- function(df, x_coord = "x", y_coord = "y", 
+                         source_crs = "+init=EPSG:28992", goal_crs = "+init=EPSG:4326"){
+  
+  df %>% 
+    dplyr::mutate(latlong = map2(.[[x_coord]], .[[y_coord]], coordinate_conversion, 
+                                 source_crs = source_crs, goal_crs = goal_crs)) %>% 
+    tidyr::unnest()
+}
+
+  
+#' Coordinate Conversion
+#' 
+#' Helper functie voor coordinaten conversie. Deze functie wordt gebruikt door add_lat_long
+#'
+#' @param x x-coordinaat van de bron
+#' @param y y-coordinaat van de bron
+#' @param source_crs Coordinaten Referentie Systeem van de bron coordinaten. Default is RD-stelsel.
+#' @param goal_crs Coordinaten Referentie Systeem van de doelcoordinaten. Default is WGS84.
+#'
+#' @return Een dataframe met een long en een lat
+#' 
 #'
 #' @examples
 #' \dontrun{
 #' 
-#' meetpunten %>% add_lat_long(x_coord = "x", y_coord = "y")
+#' coordinate_conversion(x = 111111, y = 444444)
 #' }
-#' 
-add_lat_long <- function(data, x_coord = "x", y_coord = "y"){
+coordinate_conversion <- function(x, y, source_crs = "+init=EPSG:28992", goal_crs = "+init=EPSG:4326"){
   
-  longlat <- 
-    data %>% 
-    dplyr::mutate(long = .[[x_coord]], lat = .[[y_coord]]) %>% 
-    dplyr::filter(long != 0, long != 0)
+  if ( any(is.na(c(x,y))) ) {return(dplyr::data_frame(long = NA, lat = NA))}
   
-  sp::coordinates(longlat) = ~long+lat
-  sp::proj4string(longlat) <- sp::CRS("+init=EPSG:28992")
-  longlat <- sp::spTransform(longlat,"+init=EPSG:4326")
+  temp <- data.frame(x,y)
+  sp::coordinates(temp) <- ~x+y
+  sp::proj4string(temp) <- sp::CRS(source_crs)
+  transformed <- as.data.frame(sp::spTransform(temp, goal_crs))
   
-  added_lat_long <- dplyr::left_join(data, select(dplyr::as_data_frame(longlat), mp, long, lat), by = "mp")
+  dplyr::data_frame(long = transformed[1,1], lat = transformed[1,2])
   
-  added_lat_long
-  
-}
-  
-  
+}  
+
+
   

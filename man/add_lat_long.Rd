@@ -4,25 +4,33 @@
 \alias{add_lat_long}
 \title{Toevoegen van latidute en longitude}
 \usage{
-add_lat_long(data, x_coord = "x", y_coord = "y")
+add_lat_long(df, x_coord = "x", y_coord = "y",
+  source_crs = "+init=EPSG:28992", goal_crs = "+init=EPSG:4326")
 }
 \arguments{
-\item{data}{Dataframe waar latitude en longitude aan toegevoegd worden}
+\item{df}{Dataframe met coordinaten}
 
-\item{x_coord}{Character. Kolomnaam van de x-coordinaat in RD-stelsel (EPSG:28992). Default is \code{"x"}}
+\item{x_coord}{Character. Kolom met de x-coordinaat}
 
-\item{y_coord}{Character. Kolomnaam van de y-coordinaat in RD-stelsel (EPSG:28992). Default is \code{"y"}}
+\item{y_coord}{Character. Kolom met de y-coordinaat}
+
+\item{source_crs}{Coordinaten Referentie Systeem van de bron coordinaten. Default is RD-stelsel.}
+
+\item{goal_crs}{Coordinaten Referentie Systeem van de doelcoordinaten. Default is WGS84.}
 }
 \value{
-Het input dataframe met een kolom \code{long} en \code{lat} toegevoegd.
+Geeft hetzelfde dataframe met een kolom long en lat toegevoegd.
 }
 \description{
-De functie voegt de latitude en longitude (WGS84) toe aan een dataframe op basis van RD-coordinaten
+De functie voegt de latitude en longitude aan een dataframe op basis van coordinaten. Default is
+van RD-stelsel naar WGS84
 }
 \examples{
+
 \dontrun{
 
-meetpunten \%>\% add_lat_long(x_coord = "x", y_coord = "y")
-}
+df \%>\% add_lat_long()
+df \%>\% add_lat_long(x_coord = "my_x_column", y = "my_y_column")
 
+}
 }
