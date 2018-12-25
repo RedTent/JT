@@ -1,5 +1,6 @@
 context("Testen van toevoegen coordinaten")
 
+
 test_that("coordinaat conversie werkt", {
   
   testobj <- coordinate_conversion(111111,444444)
@@ -16,8 +17,8 @@ test_that("coordinaat conversie werkt", {
 })
 
 test_that("long en lat toevoegen werkt", {
-  df_x_y <- tibble::tibble(x = c(110000,111111, NA), y = c(433333,444444, NA))
-  df_long_lat <- tibble::tibble(long = c(110000,111111, NA), lat = c(433333,444444, NA))
+  df_x_y <- data.frame(x = c(110000,111111, NA), y = c(433333,444444, NA))
+  df_long_lat <- data.frame(long = c(110000,111111, NA), lat = c(433333,444444, NA))
   obj_x_y <- add_lat_long(df_x_y)
   obj_long_lat <- add_lat_long(df_long_lat, "long", "lat")
   
