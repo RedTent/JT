@@ -23,4 +23,6 @@ Imports: dplyr,
     purrr,
     packcircles,
     sp,
-    rgdal
+    rgdal,
+    tibble
+Suggests: testthat

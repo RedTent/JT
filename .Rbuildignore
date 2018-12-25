@@ -1,6 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^TEST
+^MIJNTEST
 ^DEV
 ^\.travis\.yml$
 ^data-raw$

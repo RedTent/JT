@@ -155,7 +155,7 @@ add_lat_long <- function(df, x_coord = "x", y_coord = "y",
                          source_crs = "+init=EPSG:28992", goal_crs = "+init=EPSG:4326"){
   
   df %>% 
-    dplyr::mutate(latlong = map2(.[[x_coord]], .[[y_coord]], coordinate_conversion, 
+    dplyr::mutate(latlong = purrr::map2(.[[x_coord]], .[[y_coord]], coordinate_conversion, 
                                  source_crs = source_crs, goal_crs = goal_crs)) %>% 
     tidyr::unnest()
 }
@@ -180,14 +180,14 @@ add_lat_long <- function(df, x_coord = "x", y_coord = "y",
 #' }
 coordinate_conversion <- function(x, y, source_crs = "+init=EPSG:28992", goal_crs = "+init=EPSG:4326"){
   
-  if ( any(is.na(c(x,y))) ) {return(dplyr::data_frame(long = NA, lat = NA))}
+  if ( any(is.na(c(x,y))) ) {return(tibble::tibble(long = NA, lat = NA))}
   
   temp <- data.frame(x,y)
   sp::coordinates(temp) <- ~x+y
   sp::proj4string(temp) <- sp::CRS(source_crs)
   transformed <- as.data.frame(sp::spTransform(temp, goal_crs))
   
-  dplyr::data_frame(long = transformed[1,1], lat = transformed[1,2])
+  tibble::tibble(long = transformed[1,1], lat = transformed[1,2])
   
 }  
 
