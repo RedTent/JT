@@ -10,9 +10,10 @@ Depends: R (>= 2.10)
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
-Imports: dplyr,
+Imports: 
+    dplyr,
     tidyr,
     readr,
     leaflet,
@@ -24,5 +25,7 @@ Imports: dplyr,
     packcircles,
     sp,
     rgdal,
-    tibble
+    tibble,
+    stringr,
+    forcats
 Suggests: testthat

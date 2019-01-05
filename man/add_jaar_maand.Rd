@@ -6,14 +6,14 @@
 \alias{add_maand}
 \title{Jaar en maand toevoegen}
 \usage{
-add_jaar_maand(dataframe, datum = "datum")
+add_jaar_maand(df, datum = "datum")
 
-add_jaar(dataframe, datum = "datum")
+add_jaar(df, datum = "datum")
 
-add_maand(dataframe, datum = "datum")
+add_maand(df, datum = "datum")
 }
 \arguments{
-\item{dataframe}{Een dataframe waar de kolommen aan toegevoegd moeten worden.}
+\item{df}{Een dataframe waar de kolommen aan toegevoegd moeten worden.}
 
 \item{datum}{Een character-string met naam van de datum kolom. Default is \code{"datum"}}
 }

@@ -4,7 +4,7 @@
 #' 
 #' Voeg kolommen toe met het jaar en/of de maand op basis van de datum. De datumkolom moet een datumformaat hebben.
 #'
-#' @param dataframe Een dataframe waar de kolommen aan toegevoegd moeten worden.
+#' @param df Een dataframe waar de kolommen aan toegevoegd moeten worden.
 #' @param datum Een character-string met naam van de datum kolom. Default is \code{"datum"}
 #'
 #' @return De dataframe met een extra kolom \code{jaar} en/of \code{maand}. Beide kolommen zijn integers.
@@ -25,29 +25,29 @@
 #' 
 #' data %>% add_maand()
 #' }
-add_jaar_maand <- function(dataframe, datum = "datum"){
+add_jaar_maand <- function(df, datum = "datum"){
 
-  dataframe$jaar <- as.integer(lubridate::year(dataframe[[datum]]))
-  dataframe$maand <- as.integer(lubridate::month(dataframe[[datum]]))
-  dataframe
+  df$jaar <- as.integer(lubridate::year(df[[datum]]))
+  df$maand <- as.integer(lubridate::month(df[[datum]]))
+  df
 
 }
 
 #' @describeIn add_jaar_maand Voeg een kolom toe met het jaar.
 #' @export
-add_jaar <- function(dataframe, datum = "datum"){
+add_jaar <- function(df, datum = "datum"){
   
-  dataframe$jaar <- as.integer(lubridate::year(dataframe[[datum]]))
-  dataframe
+  df$jaar <- as.integer(lubridate::year(df[[datum]]))
+  df
   
 }
 
 #' @describeIn add_jaar_maand Voeg een kolom toe met de maand.
 #' @export
-add_maand <- function(dataframe, datum = "datum"){
+add_maand <- function(df, datum = "datum"){
   
-  dataframe$maand <- as.integer(lubridate::month(dataframe[[datum]]))
-  dataframe
+  df$maand <- as.integer(lubridate::month(df[[datum]]))
+  df
   
 }
 
@@ -55,7 +55,7 @@ add_maand <- function(dataframe, datum = "datum"){
 #' 
 #' Deze functie voegt de Nederlandse naam van een maand toe aan een dataframe op basis van de datum
 #'
-#' @param dataframe Dataframe waar een kolom maandnaam aan wordt toegevoegd
+#' @param df Dataframe waar een kolom maandnaam aan wordt toegevoegd
 #' @param datum Character met de naam van de datum kolom. De default is `"datum"`
 #' @param titlecase Logical. Maandnamen met hoofdletter of niet
 #'
@@ -69,13 +69,13 @@ add_maand <- function(dataframe, datum = "datum"){
 #' dataframe %>% add_maandnaam()
 #' dataframe %>% add_maandnaam(datum = "mijn_datumkolom", titlecase = FALSE)
 #' }
-add_maandnaam <- function(dataframe, datum = "datum", titlecase = TRUE){
-  index_kol <- 2 + as.integer(titlecase)
-  index_row <- lubridate::month(dataframe[[datum]])
-  dataframe$maandnaam <- as.data.frame(JT::maand_namen)[index_row, index_kol]
-  dataframe
+add_maandnaam <- function(df, datum = "datum", titlecase = FALSE) {
+  df$maandnaam <- lubridate::month(df[[datum]], label = TRUE, abbr = FALSE)
   
+  if (titlecase) {df$maandnaam <- forcats::fct_relabel(df$maandnaam,stringr::str_to_title)}
+  df
 }
+  
 
 # Opzoektabel -------------------------------------------------------------
 
@@ -124,7 +124,9 @@ opzoeken_waarde <- function(df, sleutel, attribuut, sleutelkolom = 1){
 #' 
 #' randomize(mtcars)
 #' }
-randomize <- function(data){data[sample(nrow(data)),]}
+randomize <- function(data) {
+  data[sample(nrow(data)),]
+  }
 
 
 # Latitude en longitude ---------------------------------------------------

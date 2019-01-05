@@ -4,10 +4,10 @@
 \alias{add_maandnaam}
 \title{Toevoegen van de maandnaam}
 \usage{
-add_maandnaam(dataframe, datum = "datum", titlecase = TRUE)
+add_maandnaam(df, datum = "datum", titlecase = FALSE)
 }
 \arguments{
-\item{dataframe}{Dataframe waar een kolom maandnaam aan wordt toegevoegd}
+\item{df}{Dataframe waar een kolom maandnaam aan wordt toegevoegd}
 
 \item{datum}{Character met de naam van de datum kolom. De default is \code{"datum"}}
 
