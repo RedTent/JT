@@ -85,11 +85,11 @@ grafiek_basis <- function(data,
   # het is de vraag of de grafiektitel, subtitel en astitels intern gedefinieerd moeten worden of toch liever daarbuiten
 
   if (is.null(mp)) {mp <- data[[1,"mp"]]}
-  mpomsch <- opzoeken_waarde(meetpuntendf, sleutel = mp, attribuut =  "mpomsch", sleutelkolom = "mp")
+  mpomsch <- opzoeken_waarde(df = meetpuntendf, sleutel = mp, attribuut =  "mpomsch", sleutelkolom = "mp")
 
   if (is.null(parnr)) {parnr <- data[[1,"parnr"]]}
-  parameternaam <- opzoeken_waarde(parameterdf, sleutel = parnr, attribuut = "parnaamlang", sleutelkolom = "parnr")
-  eenheid <- opzoeken_waarde(parameterdf, parnr, "eenheid")
+  parameternaam <- opzoeken_waarde(df = parameterdf, sleutel = parnr, attribuut = "parnaamlang", sleutelkolom = "parnr")
+  eenheid <- opzoeken_waarde(df = parameterdf, sleutel = parnr, attribuut = "eenheid")
 
   min_y <- min(data$waarde)
   max_y <- max(data$waarde)
@@ -159,11 +159,11 @@ boxplot_basis <- function(data,
                           ...){
 
   if (is.null(mp)) {mp <- data[[1,"mp"]]}
-  mpomsch <- opzoeken_waarde(meetpuntendf, sleutel = mp, attribuut =  "mpomsch", sleutelkolom = "mp")
+  mpomsch <- opzoeken_waarde(df = meetpuntendf, sleutel = mp, attribuut =  "mpomsch", sleutelkolom = "mp")
   
   if (is.null(parnr)) {parnr <- data[[1,"parnr"]]}
-  parameternaam <- opzoeken_waarde(parameterdf, sleutel = parnr, attribuut = "parnaamlang", sleutelkolom = "parnr")
-  eenheid <- opzoeken_waarde(parameterdf, parnr, "eenheid")
+  parameternaam <- opzoeken_waarde(df = parameterdf, sleutel = parnr, attribuut = "parnaamlang", sleutelkolom = "parnr")
+  eenheid <- opzoeken_waarde(df = parameterdf, sleutel = parnr, attribuut = "eenheid")
   
   min_y <- min(data$waarde)
   max_y <- max(data$waarde)
