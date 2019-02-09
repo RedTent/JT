@@ -100,10 +100,11 @@ grafiek_basis <- function(data,
     ggplot2::geom_point(col = hhskblauw) +
     ggplot2::geom_point(data = dplyr::filter(data, detectiegrens == "<"), pch = 21, col = hhskblauw, fill = "white") + # detectiegrenswaarden
     
-    ggplot2::labs(title = paste("Meetpunt:", mp,"-", mpomsch), subtitle = paste("Parameter:", parameternaam)) +
-    ggplot2::ylab(eenheid) +
+    ggplot2::labs(x = "", 
+                  y = eenheid, 
+                  title = paste("Meetpunt:", mp,"-", mpomsch), 
+                  subtitle = paste("Parameter:", parameternaam)) +
     ggplot2::scale_y_continuous(limits = ylimieten, expand = c(0,0), oob = scales::rescale_none ) +
-    ggplot2::xlab("") +
     ggplot2::scale_x_date(date_breaks = "years", labels = lubridate::year) + 
     hhskthema()
   
