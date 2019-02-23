@@ -91,9 +91,9 @@ grafiek_basis <- function(data,
   parameternaam <- opzoeken_waarde(df = parameterdf, sleutel = parnr, attribuut = "parnaamlang", sleutelkolom = "parnr")
   eenheid <- opzoeken_waarde(df = parameterdf, sleutel = parnr, attribuut = "eenheid")
 
-  min_y <- min(data$waarde)
-  max_y <- max(data$waarde)
-  if (min_y == max_y) { ylimieten <- c(0, max_y * 1.1)} else if (min_y / (max_y - min_y) > 1) {ylimieten <- c(min_y * 0.95, max_y * 1.05)} else {ylimieten <- c(0, max_y * 1.1)}
+  range_y <- range(data$waarde, na.rm = TRUE)
+  ylimieten <- range_y * c(0, 1.1)
+  if (range_y[1] * 2 > range_y[2] & range_y[1] != range_y[2]) {ylimieten <- range_y * c(0.95, 1.05)}
   
   grafiek <- ggplot2::ggplot(data, ggplot2::aes(x = datum, y = waarde)) +
     ggplot2::geom_line(col = hhskblauw) +

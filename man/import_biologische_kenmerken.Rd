@@ -4,7 +4,8 @@
 \alias{import_biologische_kenmerken}
 \title{Importeer biologische monsterkenmerken}
 \usage{
-import_biologische_kenmerken(kenmerken_csv = "data/biologie_kenmerken.csv")
+
+  import_biologische_kenmerken(kenmerken_csv = "data/biologie_kenmerken.csv")
 }
 \arguments{
 \item{kenmerken_csv}{Een characterstring met het pad naar het te importeren bestand. Het bestand moet in

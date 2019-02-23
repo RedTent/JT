@@ -98,10 +98,10 @@ add_maandnaam <- function(df, datum = "datum", titlecase = FALSE) {
 #' @examples
 #' \dontrun{
 #' 
-#' meetpuntomschrijving <- ophalen_waarde(meetpuntendf, sleutel = "00016", attribuut = "mpomsch")
+#' meetpuntomschrijving <- ophalen_waarde(sleutel = "00016", df = meetpuntendf, attribuut = "mpomsch")
 #' 
 #' }
-opzoeken_waarde <- function(df, sleutel, attribuut, sleutelkolom = 1){
+opzoeken_waarde <- function(sleutel, df, attribuut, sleutelkolom = 1){
   df[df[[sleutelkolom]] == sleutel, attribuut] %>% 
     c(use.names = FALSE, recursive = TRUE)
 }

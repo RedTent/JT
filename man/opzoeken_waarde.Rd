@@ -4,12 +4,12 @@
 \alias{opzoeken_waarde}
 \title{Zoek een waarde op in een opzoektabel}
 \usage{
-opzoeken_waarde(df, sleutel, attribuut, sleutelkolom = 1)
+opzoeken_waarde(sleutel, df, attribuut, sleutelkolom = 1)
 }
 \arguments{
-\item{df}{Een dataframe die functioneert als opzoektabel}
-
 \item{sleutel}{De sleutelwaarde, selecteert de rij}
+
+\item{df}{Een dataframe die functioneert als opzoektabel}
 
 \item{attribuut}{De kolom(index) waar de op te halen waarde staat}
 
@@ -25,7 +25,7 @@ Deze functie kan waarden opzoeken in een tabel. Het is het alternatief voor een 
 \examples{
 \dontrun{
 
-meetpuntomschrijving <- ophalen_waarde(meetpuntendf, sleutel = "00016", attribuut = "mpomsch")
+meetpuntomschrijving <- ophalen_waarde(sleutel = "00016", df = meetpuntendf, attribuut = "mpomsch")
 
 }
 }
